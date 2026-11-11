@@ -793,9 +793,9 @@ const ORGS = [
   { id: 14, safe: true, name: 'Pharmacie du Centre', kind: 'Pharmacy', cat: 'Safe places', area: 'Ville Haute', x: '52%', y: '34%', col: '#141414', path: P.shield, desc: SAFE_DESC, hours: 'Mon–Sat, 8:00–19:00' }
 ];
 const ROLES = [
-  { k: 'get', label: 'Get a hand', title: 'Get a hand', sub: 'Things for your family, company, or help with daily life. Free, close to home.', cta: 'I need help', img: 'uploads/ho%20bisogno%20di%20aiuto.webp' },
-  { k: 'give', label: 'Lend a hand', title: 'Lend a hand', sub: 'Give items, time or skills to someone nearby who needs them.', cta: 'I want to help', img: 'uploads/Posso%20dare%20aiuto.webp' },
-  { k: 'org', label: 'Organisation', title: 'Join as an organisation', sub: 'Share your events, appear on the map and reach the people you support.', cta: 'Continue as organisation', img: 'uploads/org.webp' }
+  { k: 'get', label: 'Get a hand', title: 'Get a hand', sub: 'Things for your family, company, or help with daily life. Free, close to home.', cta: 'I need help', img: 'ho%20bisogno%20di%20aiuto.webp' },
+  { k: 'give', label: 'Lend a hand', title: 'Lend a hand', sub: 'Give items, time or skills to someone nearby who needs them.', cta: 'I want to help', img: 'Posso%20dare%20aiuto.webp' },
+  { k: 'org', label: 'Organisation', title: 'Join as an organisation', sub: 'Share your events, appear on the map and reach the people you support.', cta: 'Continue as organisation', img: 'org.webp' }
 ];
 const AIMS = [
   { k: 'get', label: 'Get a hand', sub: 'Things, company, help with daily life', col: '#FF5A5F', grad: 'linear-gradient(135deg,#FF9F43,#FF5A5F)', path: P.heart, bg: 'linear-gradient(170deg,#FFD3C2 0%,#FBDCE7 42%,#F6F6F4 88%)' },
@@ -912,7 +912,7 @@ class Component extends DCLogic {
     if (this._orb) return this._orb;
     const h = React.createElement, ph = ['pasted-1793960617639-0.png', 'pasted-1793960632432-0.png', 'pasted-1793960648980-0.png', 'pasted-1793960665166-0.png', 'pasted-1793960687139-0.png', 'pasted-1793960368136-0.png', 'pasted-1793960395552-0.png', 'pasted-1793972202308-0.png', 'Fatima Kurtic - community outreach.png', 'foto laurea.jpeg', 'pasted-1793972982437-0.png', 'pasted-1793965354458-0.png'];
     const ring = (r, dur, rev, list, sz) => h('div', { style: { position: 'absolute', left: 125 - r, top: 125 - r, width: r * 2, height: r * 2, animation: (rev ? 'rrspinrev ' : 'rrspin ') + dur + 's linear infinite', pointerEvents: 'none' } },
-      list.map((src, k) => { const a = (k / list.length) * Math.PI * 2 - Math.PI / 2; return h('span', { key: k, style: { position: 'absolute', left: r + r * Math.cos(a) - sz / 2, top: r + r * Math.sin(a) - sz / 2, width: sz, height: sz, borderRadius: '50%', border: '2.5px solid #fff', background: `url('uploads/${src}') center 30%/cover`, boxShadow: '0 8px 18px -8px rgba(20,20,20,.35)', animation: (rev ? 'rrspin ' : 'rrspinrev ') + dur + 's linear infinite' } }); }));
+      list.map((src, k) => { const a = (k / list.length) * Math.PI * 2 - Math.PI / 2; return h('span', { key: k, style: { position: 'absolute', left: r + r * Math.cos(a) - sz / 2, top: r + r * Math.sin(a) - sz / 2, width: sz, height: sz, borderRadius: '50%', border: '2.5px solid #fff', background: `url('${src}') center 30%/cover`, boxShadow: '0 8px 18px -8px rgba(20,20,20,.35)', animation: (rev ? 'rrspin ' : 'rrspinrev ') + dur + 's linear infinite' } }); }));
     return (this._orb = h('div', { style: { position: 'absolute', inset: 0, pointerEvents: 'none' } }, ring(125, 140, false, ph.slice(0, 5), 32), ring(165, 200, true, ph.slice(5), 26)));
   }
   aimMove = e => { const d = this._ad; if (!d) return; let dx = e.clientX - d.x; if ((d.i === 0 && dx > 0) || (d.i === 2 && dx < 0)) dx *= 0.3; this.setState({ aimDx: dx }); };
