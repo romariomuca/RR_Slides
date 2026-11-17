@@ -395,9 +395,9 @@
               <div style="position:relative;display:flex;align-items:center;gap:12px;padding:8px 18px 12px">
                 <button onClick="{{ closeAi }}" style="width:38px;height:38px;flex:none;border-radius:19px;border:0;background:rgba(255,255,255,.8);cursor:pointer;font:500 16px Poppins;color:#141414">←</button>
                 <span style="width:42px;height:42px;flex:none;border-radius:50%;background:#141414;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"></path></svg></span>
-                <span style="flex:1;display:flex;flex-direction:column;gap:1px"><span style="font:500 15px Poppins">AI Assistant</span><span style="font:400 11px Poppins;color:#5E5E5A">Knows the events, people and places near you</span></span>
+                <span style="flex:1;display:flex;flex-direction:column;gap:1px"><span style="font:500 15px Poppins">AI Assistant</span><span style="font:400 11px Poppins;color:#5E5E5A">One assistant for neighbours, events and volunteering</span></span>
               </div>
-              <div data-demo="aichat" style="position:relative;flex:1;overflow:auto;scrollbar-width:none;display:flex;flex-direction:column;gap:10px;padding:10px 18px">
+              <div data-demo="aichat" style="position:relative;flex:1;min-height:0;overflow:auto;scrollbar-width:none;display:flex;flex-direction:column;gap:10px;padding:10px 18px">
                 <sc-for list="{{ aiMsgs }}" as="m" hint-placeholder-count="1">
                   <div style="flex:none;align-self:{{ m.align }};max-width:88%;display:flex;flex-direction:column;gap:8px">
                     <div style="padding:10px 14px;border-radius:{{ m.rad }};background:{{ m.bg }};color:{{ m.fg }};font:400 14px/1.45 Poppins">{{ m.text }}</div>
@@ -689,7 +689,7 @@
           <button onClick="{{ vBack }}" aria-label="Back" style="width:40px;height:40px;flex:none;border-radius:20px;border:0;background:rgba(255,255,255,.75);cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
           <div style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font:500 15px Poppins;color:#141414">Volunteer galaxy</span><span style="font:400 11px Poppins;color:#5E5E5A">{{ vTotal }} roles and growing</span></div>
           <div style="flex:none;display:flex;padding:3px;border-radius:20px;background:rgba(255,255,255,.55)">
-            <button onClick="{{ toChat }}" style="height:34px;padding:0 12px;border-radius:17px;border:0;background:{{ segChatBg }};font:500 12px Poppins;color:#141414;cursor:pointer">Chat</button>
+            <button onClick="{{ toChat }}" style="height:34px;padding:0 12px;border-radius:17px;border:0;background:{{ segChatBg }};font:500 12px Poppins;color:#141414;cursor:pointer">Ask AI</button>
             <button onClick="{{ toExplore }}" style="height:34px;padding:0 12px;border-radius:17px;border:0;background:{{ segExpBg }};font:500 12px Poppins;color:#141414;cursor:pointer">Explore</button>
           </div>
         </div>
@@ -716,7 +716,7 @@
               <button onClick="{{ vMatchInts }}" style="width:100%;height:48px;margin-top:14px;border:0;border-radius:24px;background:linear-gradient(180deg,#2A2A2E,#141414);color:#FFFFFF;font:500 14px Poppins;cursor:pointer;opacity:{{ vIntOp }}">Match me</button>
             </div>
             <div style="margin:12px 16px 0;padding:16px;border-radius:24px;background:#FFFFFF">
-              <span style="display:block;font:500 11px Poppins;letter-spacing:1.5px;text-transform:uppercase;color:#8A8A86">Or ask in your own words</span>
+              <span style="display:block;font:500 11px Poppins;letter-spacing:1.5px;text-transform:uppercase;color:#8A8A86">Or ask the AI assistant</span>
               <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px">
                 <sc-for list="{{ vPrompts }}" as="q" hint-placeholder-count="4"><button onClick="{{ q.ask }}" style="min-height:42px;padding:8px 14px;border-radius:16px;border:0;background:#F3F3F0;color:#141414;font:400 13px Poppins;text-align:left;cursor:pointer">“{{ q.label }}”</button></sc-for>
               </div>
@@ -896,6 +896,16 @@ function vFilter(F) {
     && (!F.mode.length || F.mode.includes(o.mode) || o.mode === 'Both')
     && (!F.lang.length || o.lang.some(l => F.lang.includes(l))));
 }
+function volExtra(q) {
+  if (/volunt|volontar|b[ée]n[ée]vol|make a difference|give back|help others|i want to help|my time/i.test(q)) {
+    const w = vReply(q);
+    const refs = w.ids.map(id => ['vol', id]);
+    refs.push(['volx', w.more ? w.more.n : 0, w.more ? w.more.f : null]);
+    return { text: w.text, refs, keep: false };
+  }
+  if (/luxemb|l[ëe]tzeb/i.test(q) && /learn|practi|speak|lesson|course|impar|studi/i.test(q)) return { text: 'There are a few ways to practise near you. Claire offers free lessons and there is a language table every Thursday. If you’re new in Luxembourg, volunteers from the Red Cross and Serve the City also help you practise.', refs: [['vol', 'v11'], ['vol', 'v17']], keep: true };
+  return null;
+}
 function vReply(q) {
   const f = vParse(q);
   if (!f.cause.length && !f.mode.length && !f.time.length) {
@@ -1035,7 +1045,7 @@ const SITS = [
   ['Caring for someone', 'A parent, partner or child', '#1DD1A1', P.heart], ['Single parent', 'Raising kids on my own', '#54A0FF', P.users], ['Something else', "I'll explain later", '#A55EEA', P.dots]
 ];
 const BLOCK = /(\d[\s.-]?){7,}|https?:|www\.|€|\bpay|iban|paypal|money/i;
-const SUGGEST = ["What's on this weekend?", 'Something for my kids', 'I want to learn Luxembourgish', 'I feel lonely', 'I need help moving'];
+const SUGGEST = ['I need a bike to go to work', 'I want to learn Luxembourgish', 'I want to volunteer in human rights', 'I need help moving', 'Winter clothes for my kids'];
 const EVDAYS = { 2: [12, 19, 26], 7: [15, 22], 12: [14, 21], 21: [22], 22: [11, 18, 25], 30: [11, 14, 18], 31: [11, 13, 20], 32: [12, 15, 21], 33: [11, 16, 23], 34: [13, 19], 35: [14, 21] };
 const EVTIMES = { 2: '18:30', 7: '18:00', 12: '10:00', 21: '12:00', 22: '15:00', 30: '16:00', 31: '17:00', 32: '18:00', 33: '10:00', 34: '18:30', 35: '10:00' };
 const WKD = d => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][(d - 1 + 0) % 7 === 0 ? 0 : (d - 1) % 7];
@@ -1050,6 +1060,7 @@ function eventReply(t, all) {
 }
 function reply(t, all) {
   t = t.toLowerCase();
+  if (/bike|bicycle|v[ée]lo|bici/.test(t) && !/kid|child|bambin|enfant/.test(t)) return { text: 'No adult bikes on the board right now, so post an ask: neighbours often have one in the cellar. Vëlosatelier also fixes up donated bikes, and their repair morning is a good place to find one.', refs: [['compose', 'Ask'], ['post', 12], ['org', 3]] };
   if (/map/.test(t)) return { text: 'Here are the events on the map. You can filter them by type at the top.', refs: [['map', 'Meetup']], chips: [] };
   if (/event|what'?s on|weekend|today|tonight|tomorrow|week|do |activit|join|kid|child|famil|music|sport|cook|dinner|lonel|alone|meet/.test(t)) { const e = eventReply(t, all); if (e) { if (/lonel|alone/.test(t)) e.text = "You're not alone. Many neighbours come to these to meet new people. " + e.text; return e; } }
   if (/lang|luxemb|french|german|learn|lesson|class/.test(t)) return { text: 'There are a few ways to practise near you. Claire offers free lessons, and there is a language table every Thursday.', refs: [['post', 9], ['post', 2], ['org', 1]] };
@@ -1072,7 +1083,7 @@ const NEWS = [['We are now 3,400+ neighbours. Invite yours!', '2 Nov', '#FF5A5F'
 const RULES = [['Give an item', 'For every item you give away', 50, P.gift, '#FF5A5F', 1], ['Answer a need', 'Help a neighbour who asked', 40, P.hand, '#1DD1A1', 1], ['Join a meetup', 'Show up and meet people', 15, P.users, '#A55EEA', 1], ['Post on the board', 'Ask, offer or create a meetup', 20, P.board, '#FF9F43', 0], ['Invite a friend', 'When they join the community', 25, P.user, '#54A0FF', 0], ['Rate a meeting', 'Help keep everyone safe', 5, P.shield, '#FECA57', 0]];
 const LB = [['Afrilanthropy', 880], ['Emanuele', 756], ['Shewit', 320], ['Tanya', 227], ['Marc', 190], ['Chiara', 95]];
 const SAFE = ['Kaffi Bonnevoie', 'Librairie Ernster', 'Bistro am Park'];
-const INIT = { screen: 'onb', step: 0, aims: [], sits: [], adult: false, interests: ['Language practice', 'Friends', "Kids' things"], role: 'person', guest: false, tab: 'board', typeF: 'Items', catFs: [], cats: false, postId: null, compose: false, draft: { type: 'Ask', title: '', body: '', cat: '' }, joined: [], helped: [], likes: [], extra: [], needsLeft: 2, threads: THREADS, chatKey: null, chatText: '', ai: false, aiMsgs: [{ me: false, text: "Hi, I'm your AI Assistant. Ask me what's happening near you, or tell me what you need, in any language.", refs: [] }], aiText: '', mapF: 'All', orgId: null, sheet: null, ntab: 'notif', read: false, gpTab: 'earn', gpPoints: 120, copied: false, rateFor: null, rateVote: null, rated: {}, loginAsk: false, toast: null, vol: false, vView: 'hub', vMsgs: [{ me: false, text: 'Hi! I’m your volunteering guide. I know Luxembourg’s volunteering platforms, from Lëtz Help and benevolat.lu to the Red Cross. Tell me what you care about and I’ll find where you fit.', ids: [], plats: [] }], vText: '', vInt: [], vF: VEMPTY, vDet: null, vTyping: false };
+const INIT = { screen: 'onb', step: 0, aims: [], sits: [], adult: false, interests: ['Language practice', 'Friends', "Kids' things"], role: 'person', guest: false, tab: 'board', typeF: 'Items', catFs: [], cats: false, postId: null, compose: false, draft: { type: 'Ask', title: '', body: '', cat: '' }, joined: [], helped: [], likes: [], extra: [], needsLeft: 2, threads: THREADS, chatKey: null, chatText: '', ai: false, aiMsgs: [{ me: false, text: "Hi, I'm your AI Assistant. Tell me what you need, or how you'd like to help, in any language. I search your neighbours, local events and Luxembourg's volunteering platforms.", refs: [] }], aiText: '', mapF: 'All', orgId: null, sheet: null, ntab: 'notif', read: false, gpTab: 'earn', gpPoints: 120, copied: false, rateFor: null, rateVote: null, rated: {}, loginAsk: false, toast: null, vol: false, vView: 'hub', vMsgs: [{ me: false, text: 'Hi! I’m your volunteering guide. I know Luxembourg’s volunteering platforms, from Lëtz Help and benevolat.lu to the Red Cross. Tell me what you care about and I’ll find where you fit.', ids: [], plats: [] }], vText: '', vInt: [], vF: VEMPTY, vDet: null, vTyping: false };
 
 const SUBP = ['myposts', 'saved', 'edit', 'lang', 'notifset', 'privacy', 'help'], PROFP = ['profile', ...SUBP];
 const NS = [['msg', 'New messages', 'When someone writes to you'], ['req', 'Replies to my posts', 'Offers of help and requests for your items'], ['ev', 'Events near me', 'New events from organisations within 5 km'], ['pts', 'Points and badges', 'When you earn rainbow points'], ['news', 'Weekly news', 'A short summary every Monday']];
@@ -1083,22 +1094,16 @@ class Component extends DCLogic {
 
   vAsk(q) {
     q = (q || '').trim(); if (!q) return;
-    const r = vReply(q);
-    this.setState(st => ({ vol: true, vView: 'chat', vDet: null, vText: '', vMsgs: [...st.vMsgs, { me: true, text: q }], vTyping: true }));
-    clearTimeout(this._vt);
-    this._vt = setTimeout(() => { this.setState(st => ({ vTyping: false, vMsgs: [...st.vMsgs, r] })); this.vScroll(); }, 1100);
-    this.vScroll();
+    this.setState({ vol: false, vDet: null });
+    this.ask(q);
   }
   vScroll() { setTimeout(() => { const el = document.querySelector('[data-inst="' + this._iid + '"] [data-vchat]'); if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' }); }, 60); }
   vDemo() {
     const T = this._dm = this._dm || []; let t = 0;
     const at = (d, f) => { t += d; T.push(setTimeout(f, t)); };
-    const q = 'I’d like to volunteer in human rights';
     at(0, () => this.setState({ ...INIT, screen: 'app', vol: true, vView: 'hub' }));
-    at(1600, () => this.setState({ vView: 'chat' }));
-    for (let i = 1; i <= q.length; i++) at(45, () => this.setState({ vText: q.slice(0, i) }));
-    at(500, () => this.vAsk(q));
-    at(3400, () => this.setState({ vDet: 'v1' }));
+    at(2400, () => this.setState({ vView: 'explore', vF: { ...VEMPTY, cause: ['Human rights'] } }));
+    at(2600, () => this.setState({ vDet: 'v1' }));
     at(4000, () => {});
   }
   _vol() {
@@ -1116,13 +1121,13 @@ class Component extends DCLogic {
       openVol: () => this.setState({ vol: true, vView: 'hub', vDet: null }),
       closeVol: () => this.setState({ vol: false, vDet: null }),
       vBack: () => s.vDet ? this.setState({ vDet: null }) : s.vView === 'hub' ? this.setState({ vol: false }) : this.setState({ vView: 'hub' }),
-      toChat: () => this.setState({ vView: 'chat' }), toExplore: () => this.setState({ vView: 'explore' }),
+      toChat: () => this.setState({ vol: false, vDet: null, ai: true }), toExplore: () => this.setState({ vView: 'explore' }),
       segChatBg: s.vView === 'explore' ? 'transparent' : '#FFFFFF', segExpBg: s.vView === 'explore' ? '#FFFFFF' : 'transparent',
       vPlats: plats, vTotal: VOPS.length,
       vInts: VCAUSES.map(c => { const on = (s.vInt || []).includes(c); return { label: c, bg: on ? '#141414' : '#FFFFFF', fg: on ? '#FFFFFF' : '#141414', bd: on ? '#141414' : '#E6E6E2', pick: () => this.setState({ vInt: tog(s.vInt || [], c) }) }; }),
       vIntOp: (s.vInt || []).length ? 1 : 0.4,
       vMatchInts: () => (s.vInt || []).length && this.vAsk('I want to help. My interests: ' + s.vInt.join(', ').toLowerCase()),
-      vPrompts: ['I’d like to volunteer in human rights', 'Something remote I can do from home', 'Help refugees and newcomers', 'I’m 22 and want a full-time year'].map(q => ({ label: q, ask: () => this.vAsk(q) })),
+      vPrompts: ['I’d like to volunteer in human rights', 'I want to volunteer remotely, from home', 'I want to volunteer with refugees', 'I’m 22 and want a full-time volunteering year'].map(q => ({ label: q, ask: () => this.vAsk(q) })),
       vText: s.vText || '', vSetText: e => this.setState({ vText: e.target.value }), vKey: e => { if (e.key === 'Enter') this.vAsk(s.vText); }, vSend: () => this.vAsk(s.vText),
       vMsgs: (s.vMsgs || []).map(m => ({ text: m.text, align: m.me ? 'flex-end' : 'flex-start', bg: m.me ? '#141414' : '#FFFFFF', fg: m.me ? '#FFFFFF' : '#141414', rad: m.me ? '20px 20px 6px 20px' : '20px 20px 20px 6px', cards: (m.ids || []).map(id => card(VOPS.find(o => o.id === id))), hasCards: !!(m.ids && m.ids.length), hasMore: !!m.more, moreLabel: m.more ? 'See all ' + m.more.n + ' in Explore' : '', more: () => m.more && this.setState({ vView: 'explore', vF: m.more.f }), hasPlats: !!(m.plats && m.plats.length), platLinks: (m.plats || []).map(k => ({ name: VPLAT[k].name, url: VPLAT[k].url, col: VPLAT[k].col })) })),
       vTyping: !!s.vTyping,
@@ -1267,11 +1272,11 @@ class Component extends DCLogic {
       at(1500, () => tap(184, 190));
       at(300, () => this.setState({ ai: true }));
       at(900, () => tap(184, 788));
-      q("What's on this weekend for my kids?", 3600);
+      q('I need a bike to go to work', 4200);
       at(0, () => tap(318, 420));
       at(200, () => { const v = this.renderVals(); const m = v.aiMsgs[v.aiMsgs.length - 1]; const r = m && m.refs.find(x => x.hasJoin); if (r) r.join({ stopPropagation() {} }); });
       at(2200, () => {});
-      q('I feel a bit lonely', 3800);
+      q('I want to learn Luxembourgish', 4200); q('I want to volunteer in human rights', 5000);
     } else if (kind === 'map') {
       at(0, () => this.setState({ ...app, tab: 'map', mapKind: 'Items', mapSub: [], evId: null, tap: null }));
       at(1600, () => { const v = this.renderVals(); const p = (v.pins || []).find(x => x.rad === '50%'); if (p) { tap(parseFloat(p.x) * 3.68, 90 + parseFloat(p.y) * 6.2); p.pick(); } });
@@ -1305,10 +1310,14 @@ class Component extends DCLogic {
   }
   ask(text) {
     if (!(text || '').trim()) return;
-    const r = reply(text, [...this.state.extra, ...POSTS]);
+    let r = reply(text, [...this.state.extra, ...POSTS]);
+    const x = volExtra(text);
+    if (x) r = { text: x.text, refs: [...(x.keep ? r.refs.slice(0, 2) : []), ...x.refs], chips: x.keep ? r.chips : [] };
     this.setState(s => ({ aiText: '', ai: true, aiTyping: true, aiChips: [], aiMsgs: [...s.aiMsgs, { me: true, text, refs: [] }] }));
-    clearTimeout(this._at); this._at = setTimeout(() => this.setState(s => ({ aiTyping: false, aiChips: r.chips || [], aiMsgs: [...s.aiMsgs, { me: false, text: r.text, refs: r.refs }] })), 1100);
+    clearTimeout(this._at); this._at = setTimeout(() => this.setState(s => ({ aiTyping: false, aiChips: r.chips || [], aiMsgs: [...s.aiMsgs, { me: false, text: r.text, refs: r.refs }] }), () => this.aiScroll()), 1100);
+    this.aiScroll();
   }
+  aiScroll() { [60, 400].forEach(d => setTimeout(() => { const el = document.querySelector('[data-inst="' + this._iid + '"] [data-demo="aichat"]'); if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' }); }, d)); }
   primary(p) {
     if (this.gate()) return;
     const s = this.state;
@@ -1340,6 +1349,8 @@ class Component extends DCLogic {
     const th = s.chatKey && s.threads[s.chatKey];
     const fmt = m => ({ me: { align: 'flex-end', maxw: '80%', pad: '10px 14px', rad: '20px 20px 6px 20px', bg: '#141414', fg: '#FFFFFF', border: '0', font: '400 14px/1.4 Poppins', ta: 'left' }, them: { align: 'flex-start', maxw: '80%', pad: '10px 14px', rad: '20px 20px 20px 6px', bg: '#FFFFFF', fg: '#141414', border: '0', font: '400 14px/1.4 Poppins', ta: 'left' }, flag: { align: 'stretch', maxw: '100%', pad: '10px 14px', rad: '16px', bg: '#FFF4EE', fg: '#B8501E', border: '1.5px dashed #F5B795', font: '500 12px/1.4 Poppins', ta: 'left' }, safe: { align: 'flex-end', maxw: '82%', pad: '12px 14px', rad: '20px 20px 6px 20px', bg: '#FFFFFF', fg: '#141414', border: '1.5px solid #1DD1A1', font: '500 13px/1.4 Poppins', ta: 'left' } })[m.k];
     const refOf = ([k, id, day]) => {
+      if (k === 'vol') { const o = VOPS.find(x => x.id === id), PL = VPLAT[o.p]; return { title: o.t, sub: o.org === PL.short || o.org === PL.name ? PL.name + ' · ' + o.where : PL.short + ' · ' + o.org, vis: PL.col + '22', iconOp: 1, path: P.heart, col: PL.col, hasJoin: false, noJoin: true, open: () => this.setState({ ai: false, vol: true, vView: 'explore', vF: VEMPTY, vDet: o.id }) }; }
+      if (k === 'volx') return { title: id ? 'See all ' + id + ' in Volunteer galaxy' : 'Open the Volunteer galaxy', sub: 'Every platform, filter by cause, time, language', vis: 'conic-gradient(from 200deg,#FF5A5F,#FF9F43,#FECA57,#1DD1A1,#54A0FF,#A55EEA,#FF5A5F)', iconOp: 1, path: P.heart, col: '#FFFFFF', hasJoin: false, noJoin: true, open: () => this.setState({ ai: false, vol: true, vView: id ? 'explore' : 'hub', vF: day || VEMPTY, vDet: null }) };
       if (k === 'ev') { const p = all.find(x => x.id === id); const going = s.joined.includes(id); return { title: p.title, sub: `${p.who} · ${WKD(day)} ${day} Nov · ${EVTIMES[id] || ''}`, vis: vis(p), iconOp: 0, path: P.cal, col: '#141414', hasJoin: true, noJoin: false, joinL: going ? 'Going ✓' : 'Join', joinBg: going ? '#FFFFFF' : '#141414', joinFg: going ? '#141414' : '#FFFFFF', joinB: going ? '1.5px solid #141414' : '0', join: e => { e.stopPropagation(); if (this.gate()) return; this.tog('joined', id); if (!going) this.flash('You joined ' + p.title + '. +5 points'); }, open: () => this.setState({ ai: false, postId: id }) }; }
       if (k === 'map') return { title: 'Open the map of events', sub: 'Everything happening near you', vis: '#EDEDEA', iconOp: 1, path: P.map, col: '#141414', hasJoin: false, noJoin: true, open: () => this.setState({ ai: false, tab: 'map', mapKind: 'Meetup', mapSub: [] }) };
       if (k === 'post') { const p = pv(all.find(x => x.id === id)); return { title: p.title, sub: `${p.who} · ${p.area}`, path: p.path, col: p.col, bg: TINT[p.col], open: () => this.setState({ ai: false, postId: id }) }; }
