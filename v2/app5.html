@@ -31,7 +31,7 @@
             </div>
           <div style="position:relative;margin-top:52px;padding:0 30px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
             
-            <h1 style="margin:0;font:400 34px/1.08 Poppins;letter-spacing:-0.035em">A solidarity app for people in need</h1>
+            <h1 style="margin:0;font:400 34px/1.02 Poppins;letter-spacing:-0.035em">A solidarity app for people in need</h1>
             
           </div>
           <div style="position:relative;margin-top:18px;display:flex;align-items:center;gap:10px"><span style="display:flex"><span style="width:28px;height:28px;border-radius:50%;background:url('assets/1629056007607-f3e5de821891.jpg') center/cover;border:2px solid #fff"></span><span style="width:28px;height:28px;margin-left:-8px;border-radius:50%;background:url('assets/1455884981818-54cb785db6fc.jpg') center/cover;border:2px solid #fff"></span><span style="width:28px;height:28px;margin-left:-8px;border-radius:50%;background:url('assets/1714618888538-8d15a9228236.jpg') center/cover;border:2px solid #fff"></span></span><span style="font:500 11px Poppins;letter-spacing:1.5px;text-transform:uppercase;color:#5E5E5A">Every act of help counts</span></div>
@@ -57,7 +57,7 @@
           
           <div style="position:absolute;left:0;right:0;top:400px;bottom:0;display:flex;flex-direction:column;align-items:center;padding:0 28px">
             <span style="font:400 13px Poppins;color:#5E5E5A">I'm here to…</span>
-            <h2 style="margin:4px 0 0;font:400 34px/1.08 Poppins;letter-spacing:-0.035em;text-align:center;white-space:pre-line">{{ aimTitle }}</h2>
+            <h2 style="margin:4px 0 0;font:400 34px/1.02 Poppins;letter-spacing:-0.035em;text-align:center;white-space:pre-line">{{ aimTitle }}</h2>
             <p style="margin:10px 0 0;font:400 14px/1.45 Poppins;color:#5E5E5A;text-align:center;white-space:pre-line;min-height:61px">{{ aimSub }}</p>
             <div style="margin-top:18px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px"><sc-for list="{{ roleCards }}" as="r" hint-placeholder-count="2"><button onClick="{{ r.pick }}" style="height:60px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:20px;border:1.5px solid {{ r.border }};background:{{ r.bg }};cursor:pointer;text-align:left;color:#141414;box-shadow:{{ r.sh }};transition:all .2s"><span style="width:34px;height:34px;flex:none;border-radius:50%;background:{{ r.tint }};display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ r.ic }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.path }}"></path></svg></span><span style="font:500 13px/1.2 Poppins">{{ r.label }}</span></button></sc-for></div>
           </div>
@@ -70,7 +70,7 @@
           <div style="position:absolute;left:0;right:0;top:0;height:420px;background:{{ permBg }};-webkit-mask-image:linear-gradient(180deg,#000 40%,transparent 100%);mask-image:linear-gradient(180deg,#000 40%,transparent 100%)"></div>
           <div style="position:relative;align-self:stretch;display:flex;align-items:center;justify-content:space-between;padding-top:58px"><span style="display:flex;gap:5px"><sc-for list="{{ permDots }}" as="d" hint-placeholder-count="2"><span style="width:{{ d.w }};height:6px;border-radius:3px;background:{{ d.bg }};transition:all .3s"></span></sc-for></span><button onClick="{{ permSkip }}" style="border:0;background:none;font:500 13px Poppins;color:#5E5E5A;cursor:pointer">Skip</button></div>
           <div style="position:relative;margin-top:70px;width:240px;height:240px;display:flex;align-items:center;justify-content:center"><span style="position:absolute;inset:-30px;border-radius:50%;background:radial-gradient(circle at 50% 50%,{{ permTint }} 0%,{{ permTint }} 30%,rgba(255,255,255,0) 68%)"></span><span style="position:absolute;width:186px;height:186px;border-radius:50%;border:1.5px dashed {{ permCol }};opacity:.4"></span><span style="position:relative;width:132px;height:132px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px -22px {{ permCol }}"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="{{ permCol }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ permIcon }}"></path></svg></span></div>
-          <h2 style="position:relative;margin:18px 0 0;font:400 30px/1.12 Poppins;letter-spacing:-0.03em;text-align:center;text-wrap:balance">{{ permTitle }}</h2>
+          <h2 style="position:relative;margin:18px 0 0;font:400 30px/1.04 Poppins;letter-spacing:-0.03em;text-align:center;text-wrap:balance">{{ permTitle }}</h2>
           <p style="position:relative;margin:12px 0 0;font:400 14px/1.5 Poppins;color:#5E5E5A;text-align:center;max-width:300px;text-wrap:pretty">{{ permBody }}</p>
           <div style="position:relative;margin-top:18px;display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:16px;background:rgba(255,255,255,.8)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg><span style="font:400 12px/1.4 Poppins;color:#5E5E5A">{{ permNote }}</span></div>
           <div style="position:absolute;left:20px;right:20px;bottom:20px;display:flex;flex-direction:column;gap:4px"><button onClick="{{ permAllow }}" style="height:56px;border:0;border-radius:28px;background:#141414;color:#FFFFFF;font:500 16px Poppins;cursor:pointer">{{ permCta }}</button><button onClick="{{ permLater }}" style="height:38px;border:0;background:none;font:500 14px Poppins;color:#5E5E5A;cursor:pointer">Not now</button></div>
@@ -259,7 +259,7 @@
 
           <sc-if value="{{ isExplore }}" hint-placeholder-val="{{ false }}">
             <div style="position:relative;flex:1;overflow:auto;padding:0 20px 120px">
-              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 0 18px;text-align:center"><span style="font:400 12px Poppins;color:#5E5E5A">Get inspired</span><h1 style="margin:0;font:400 32px/1.1 Poppins;letter-spacing:-0.035em">What can we<br>do together?</h1></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 0 18px;text-align:center"><span style="font:400 12px Poppins;color:#5E5E5A">Get inspired</span><h1 style="margin:0;font:400 32px/1.04 Poppins;letter-spacing:-0.035em">What can we<br>do together?</h1></div>
               <div style="position:relative;padding:18px;border-radius:26px;background:#FFFFFF;overflow:hidden;display:flex;flex-direction:column;gap:12px;box-shadow:0 14px 30px -22px rgba(20,20,20,.4)">
                 <span style="position:absolute;right:-40px;top:-50px;width:200px;height:150px;background:radial-gradient(circle,#E6DDFB 0%,rgba(230,221,251,0) 70%);filter:blur(10px);opacity:.9"></span>
                 <div style="position:relative;display:flex;align-items:center;gap:10px"><span style="width:36px;height:36px;border-radius:50%;background:#141414;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"></path></svg></span><span style="font:500 16px Poppins">Not sure where to start?</span></div>
@@ -1113,7 +1113,7 @@ const ORGS = [
 ];
 const ROLES = [
   { k: 'person', label: 'Person', title: 'Join as\na person', sub: 'Share things, time and skills with people\nnearby, and ask when you need a hand.\nFree, close to home.', cta: 'Start exploring', img: 'assets/role-person.jpg' },
-  { k: 'org', label: 'Organisation', title: 'Join as an\norganisation', sub: 'Share your events,\nappear on the map and reach\nthe people you support.', cta: 'Continue as organisation', img: 'assets/role-org2.jpg' }
+  { k: 'org', label: 'Organisation', title: 'Join as an\norganisation', sub: 'Share your events,\nappear on the map and reach\nthe people you support.', cta: 'Continue as organisation', img: 'assets/role-org3.jpg' }
 ];
 const AIMS = [
   { k: 'get', label: 'Get a hand', sub: 'Things, company, help with daily life', col: '#FF5A5F', grad: 'linear-gradient(135deg,#FF9F43,#FF5A5F)', path: P.heart, bg: 'linear-gradient(170deg,#FFD3C2 0%,#FBDCE7 42%,#F6F6F4 88%)' },
