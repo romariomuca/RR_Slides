@@ -620,8 +620,8 @@
 
               <sc-if value="{{ isPoints }}" hint-placeholder-val="{{ false }}">
                 <div style="position:relative;flex:1;overflow:auto;padding:4px 18px 30px">
-                  <div style="position:relative;height:154px;margin:2px 0 8px;border-radius:28px;overflow:hidden;background:radial-gradient(70% 55% at 50% 0%,rgba(201,140,240,.55) 0%,rgba(201,140,240,0) 75%),radial-gradient(45% 50% at 75% 15%,rgba(246,140,200,.45) 0%,rgba(246,140,200,0) 75%),radial-gradient(60% 80% at 8% 0%,rgba(255,90,95,.5) 0%,rgba(255,90,95,0) 70%),radial-gradient(60% 80% at 92% 0%,rgba(165,94,234,.45) 0%,rgba(165,94,234,0) 70%),radial-gradient(60% 80% at 10% 100%,rgba(254,202,87,.55) 0%,rgba(254,202,87,0) 70%),radial-gradient(60% 80% at 92% 100%,rgba(84,160,255,.45) 0%,rgba(84,160,255,0) 70%),radial-gradient(50% 60% at 50% 55%,rgba(29,209,161,.3) 0%,rgba(29,209,161,0) 70%),#FBEFF2;box-shadow:0 18px 40px -26px rgba(20,20,20,.35)">
-                    <span style="position:absolute;left:50%;top:14px;width:732px;height:732px;margin-left:-366px;border-radius:50%;background:rgba(255,255,255,.16)"></span><span style="position:absolute;left:50%;top:48px;width:664px;height:664px;margin-left:-332px;border-radius:50%;background:rgba(255,255,255,.14)"></span>
+                  <div style="position:relative;height:154px;margin:2px 0 8px;border-radius:28px;overflow:hidden;background:radial-gradient(55% 90% at 0% 10%,rgba(255,159,67,.55) 0%,rgba(255,159,67,0) 72%),radial-gradient(45% 80% at 22% 100%,rgba(255,90,95,.42) 0%,rgba(255,90,95,0) 72%),radial-gradient(45% 85% at 50% 0%,rgba(29,209,161,.45) 0%,rgba(29,209,161,0) 72%),radial-gradient(45% 80% at 72% 100%,rgba(84,160,255,.45) 0%,rgba(84,160,255,0) 72%),radial-gradient(55% 90% at 100% 10%,rgba(165,94,234,.5) 0%,rgba(165,94,234,0) 72%),#F7F2F3;box-shadow:0 18px 40px -26px rgba(20,20,20,.35)">
+                    <span style="position:absolute;left:50%;top:22px;width:716px;height:716px;margin-left:-358px;box-sizing:border-box;border-radius:50%;border:16px solid rgba(255,255,255,.42)"></span>
                                         <sc-for list="{{ gpNodes }}" as="n" hint-placeholder-count="6"><span style="position:absolute;left:{{ n.x }};top:{{ n.y }};width:{{ n.sz }};height:{{ n.sz }};transform:translate(-50%,-50%);border-radius:50%;background:{{ n.bg }};box-shadow:{{ n.sh }};display:flex;align-items:center;justify-content:center;font:500 {{ n.fs }} Poppins;color:{{ n.fg }}">✦</span></sc-for>
                     <div style="position:absolute;left:0;right:0;top:80px;text-align:center;font:400 15px Poppins;color:#141414"><span style="font-weight:600">{{ gpReqLeft }}</span> {{ gpReqLabel }}</div>
                     <div style="position:absolute;left:0;right:0;top:110px;text-align:center;font:400 12px Poppins;color:#5E5E5A">This month · resets on 1 December</div>
@@ -1112,8 +1112,8 @@ const ORGS = [
   { id: 14, safe: true, name: 'Pharmacie du Centre', kind: 'Pharmacy', cat: 'Safe places', area: 'Ville Haute', x: '52%', y: '34%', col: '#141414', path: P.shield, desc: SAFE_DESC, hours: 'Mon–Sat, 8:00–19:00' }
 ];
 const ROLES = [
-  { k: 'person', label: 'Person', title: 'Join as\na person', sub: 'Share things, time and skills with people\nnearby, and ask when you need a hand.\nFree, close to home.', cta: 'Start exploring', img: 'assets/ho-bisogno-di-aiuto.webp' },
-  { k: 'org', label: 'Organisation', title: 'Join as an\norganisation', sub: 'Share your events,\nappear on the map and reach\nthe people you support.', cta: 'Continue as organisation', img: 'assets/org.webp' }
+  { k: 'person', label: 'Person', title: 'Join as\na person', sub: 'Share things, time and skills with people\nnearby, and ask when you need a hand.\nFree, close to home.', cta: 'Start exploring', img: 'assets/role-person.jpg' },
+  { k: 'org', label: 'Organisation', title: 'Join as an\norganisation', sub: 'Share your events,\nappear on the map and reach\nthe people you support.', cta: 'Continue as organisation', img: 'assets/role-org.jpg' }
 ];
 const AIMS = [
   { k: 'get', label: 'Get a hand', sub: 'Things, company, help with daily life', col: '#FF5A5F', grad: 'linear-gradient(135deg,#FF9F43,#FF5A5F)', path: P.heart, bg: 'linear-gradient(170deg,#FFD3C2 0%,#FBDCE7 42%,#F6F6F4 88%)' },
@@ -1198,7 +1198,7 @@ class Component extends DCLogic {
     return {
       showVolBanner: s.typeF !== 'Meetup', ...(() => { const cost = 40, pts = s.gpPoints || 0, left = Math.max(0, s.needsLeft), total = 5, rem = cost - (pts % cost);
         const nodes = Array.from({ length: total }, (_, k) => { const a = (252 + k * (36 / (total - 1))) * Math.PI / 180, lit = k >= total - left, next = false, dx = 350 * Math.cos(a), y = 380 + 350 * Math.sin(a), pal = ['#FF9A9E', '#FFC48A', '#8EE3CB', '#9EC8FF', '#C9A6F5', '#FFE08A'];
-          return { x: 'calc(50% + ' + dx.toFixed(0) + 'px)', y: y.toFixed(0) + 'px', sz: lit ? '22px' : '18px', fs: '0px', bg: lit ? '#FFFFFF' : 'rgba(255,255,255,.4)', fg: 'transparent', sh: lit ? '0 0 0 5px rgba(255,255,255,.25),0 6px 16px -4px rgba(165,94,234,.45)' : 'inset 0 0 0 1.5px rgba(255,255,255,.7)' }; });
+          return { x: 'calc(50% + ' + dx.toFixed(0) + 'px)', y: y.toFixed(0) + 'px', sz: lit ? '22px' : '14px', fs: '0px', bg: lit ? '#FFFFFF' : 'rgba(225,222,226,.55)', fg: 'transparent', sh: lit ? '0 0 0 4px rgba(255,255,255,.35),0 6px 14px -4px rgba(20,20,20,.25)' : 'inset 0 1.5px 3px rgba(20,20,20,.22)' }; });
         return { gpCost: cost, gpNextPts: rem, gpMax: total * cost, gpPct: Math.min(100, Math.round(pts / (total * cost) * 100)) + '%', gpReqLeft: left + ' of 5', gpReqLabel: 'requests left', gpNextTxt: rem + ' to the next', gpNodes: nodes }; })(), vOn: !!s.vol, vHub: s.vView === 'hub', vChat: s.vView === 'chat', vExp: s.vView === 'explore',
       openVol: () => this.setState({ vol: true, vView: 'hub', vDet: null }),
       closeVol: () => this.setState({ vol: false, vDet: null }),
