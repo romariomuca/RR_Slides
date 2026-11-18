@@ -620,7 +620,7 @@
 
               <sc-if value="{{ isPoints }}" hint-placeholder-val="{{ false }}">
                 <div style="position:relative;flex:1;overflow:auto;padding:4px 18px 30px">
-                  <div style="position:relative;height:154px;margin:2px 0 8px;border-radius:28px;overflow:hidden;background:radial-gradient(55% 90% at 0% 10%,rgba(255,159,67,.55) 0%,rgba(255,159,67,0) 72%),radial-gradient(45% 80% at 22% 100%,rgba(255,90,95,.42) 0%,rgba(255,90,95,0) 72%),radial-gradient(45% 85% at 50% 0%,rgba(29,209,161,.45) 0%,rgba(29,209,161,0) 72%),radial-gradient(45% 80% at 72% 100%,rgba(84,160,255,.45) 0%,rgba(84,160,255,0) 72%),radial-gradient(55% 90% at 100% 10%,rgba(165,94,234,.5) 0%,rgba(165,94,234,0) 72%),#F7F2F3;box-shadow:0 18px 40px -26px rgba(20,20,20,.35)">
+                  <div style="position:relative;height:154px;margin:2px 0 8px;border-radius:28px;overflow:hidden;background:radial-gradient(60% 95% at 0% 0%,rgba(255,159,67,.6) 0%,rgba(255,159,67,0) 72%),radial-gradient(60% 95% at 100% 0%,rgba(29,209,161,.5) 0%,rgba(29,209,161,0) 72%),radial-gradient(60% 95% at 0% 100%,rgba(255,90,95,.5) 0%,rgba(255,90,95,0) 72%),radial-gradient(60% 95% at 100% 100%,rgba(165,94,234,.5) 0%,rgba(165,94,234,0) 72%),#F7F2F3;box-shadow:0 18px 40px -26px rgba(20,20,20,.35)">
                     <span style="position:absolute;left:50%;top:22px;width:716px;height:716px;margin-left:-358px;box-sizing:border-box;border-radius:50%;border:16px solid rgba(255,255,255,.42)"></span>
                                         <sc-for list="{{ gpNodes }}" as="n" hint-placeholder-count="6"><span style="position:absolute;left:{{ n.x }};top:{{ n.y }};width:{{ n.sz }};height:{{ n.sz }};transform:translate(-50%,-50%);border-radius:50%;background:{{ n.bg }};box-shadow:{{ n.sh }};display:flex;align-items:center;justify-content:center;font:500 {{ n.fs }} Poppins;color:{{ n.fg }}">✦</span></sc-for>
                     <div style="position:absolute;left:0;right:0;top:80px;text-align:center;font:400 15px Poppins;color:#141414"><span style="font-weight:600">{{ gpReqLeft }}</span> {{ gpReqLabel }}</div>
@@ -632,13 +632,19 @@
                   </div>
                   <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
                     <sc-if value="{{ gpEarn }}" hint-placeholder-val="{{ true }}">
-                      <sc-for list="{{ gpRules }}" as="r" hint-placeholder-count="6">
+                      <sc-for list="{{ gpTodo }}" as="r" hint-placeholder-count="3">
                         <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;background:#FFFFFF">
                           <span style="width:38px;height:38px;flex:none;border-radius:50%;background:{{ r.tint }};display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="{{ r.col }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.path }}"></path></svg></span>
                           <span style="flex:1;display:flex;flex-direction:column"><span style="font:500 13px Poppins">{{ r.name }}</span><span style="font:400 12px Poppins;color:#6B6B67">{{ r.desc }}</span></span>
                           <span style="height:26px;display:flex;align-items:center;padding:0 10px;border-radius:13px;background:{{ r.pillBg }};color:{{ r.pillFg }};font:500 12px Poppins;white-space:nowrap">{{ r.pts }}</span>
                         </div>
-                      </sc-for>
+                      </sc-for><sc-if value="{{ gpHasDone }}" hint-placeholder-val="{{ true }}"><span style="display:block;margin:10px 4px 2px;font:500 11px Poppins;letter-spacing:1.5px;text-transform:uppercase;color:#6B6B67">{{ gpDoneHdr }}</span><sc-for list="{{ gpDone }}" as="r" hint-placeholder-count="3">
+                        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;background:rgba(255,255,255,.55)">
+                          <span style="width:38px;height:38px;flex:none;border-radius:50%;opacity:.5;background:{{ r.tint }};display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="{{ r.col }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.path }}"></path></svg></span>
+                          <span style="flex:1;display:flex;flex-direction:column"><span style="font:500 13px Poppins;color:#8A8A86">{{ r.name }}</span><span style="font:400 12px Poppins;color:#A3A39E">{{ r.desc }}</span></span>
+                          <span style="height:26px;display:flex;align-items:center;padding:0 10px;border-radius:13px;background:{{ r.pillBg }};color:{{ r.pillFg }};font:500 12px Poppins;white-space:nowrap">{{ r.pts }}</span>
+                        </div>
+                      </sc-for></sc-if>
                     </sc-if>
                     <sc-if value="{{ gpBoard }}" hint-placeholder-val="{{ false }}">
                       <div style="display:flex;align-items:flex-end;justify-content:center;gap:8px;padding:6px 4px 2px">
@@ -1198,7 +1204,7 @@ class Component extends DCLogic {
     return {
       showVolBanner: s.typeF !== 'Meetup', ...(() => { const cost = 40, pts = s.gpPoints || 0, left = Math.max(0, s.needsLeft), total = 5, rem = cost - (pts % cost);
         const nodes = Array.from({ length: total }, (_, k) => { const a = (252 + k * (36 / (total - 1))) * Math.PI / 180, lit = k >= total - left, next = false, dx = 350 * Math.cos(a), y = 380 + 350 * Math.sin(a), pal = ['#FF9A9E', '#FFC48A', '#8EE3CB', '#9EC8FF', '#C9A6F5', '#FFE08A'];
-          return { x: 'calc(50% + ' + dx.toFixed(0) + 'px)', y: y.toFixed(0) + 'px', sz: lit ? '22px' : '14px', fs: '0px', bg: lit ? '#FFFFFF' : 'rgba(225,222,226,.55)', fg: 'transparent', sh: lit ? '0 0 0 4px rgba(255,255,255,.35),0 6px 14px -4px rgba(20,20,20,.25)' : 'inset 0 1.5px 3px rgba(20,20,20,.22)' }; });
+          return { x: 'calc(50% + ' + dx.toFixed(0) + 'px)', y: y.toFixed(0) + 'px', sz: lit ? '22px' : '14px', fs: '0px', bg: lit ? '#FFFFFF' : 'rgba(255,255,255,.7)', fg: 'transparent', sh: lit ? '0 0 0 4px rgba(255,255,255,.35),0 6px 14px -4px rgba(20,20,20,.25)' : 'none' }; });
         return { gpCost: cost, gpNextPts: rem, gpMax: total * cost, gpPct: Math.min(100, Math.round(pts / (total * cost) * 100)) + '%', gpReqLeft: left + ' of 5', gpReqLabel: 'requests left', gpNextTxt: rem + ' to the next', gpNodes: nodes }; })(), vOn: !!s.vol, vHub: s.vView === 'hub', vChat: s.vView === 'chat', vExp: s.vView === 'explore',
       openVol: () => this.setState({ vol: true, vView: 'hub', vDet: null }),
       closeVol: () => this.setState({ vol: false, vDet: null }),
@@ -1622,6 +1628,9 @@ class Component extends DCLogic {
       gpTabs: seg([['earn', 'How to earn'], ['board', 'Leaderboard'], ['invite', 'Invite']], s.gpTab, k => this.setState({ gpTab: k })),
       gpEarn: s.gpTab === 'earn', gpBoard: s.gpTab === 'board', gpInvite: s.gpTab === 'invite',
       gpRules: RULES.map(([name, desc, p, path, col, done]) => ({ name, desc, path, col, tint: TINT[col], pts: (done ? '✓ ' : '+') + p, pillBg: done ? '#141414' : '#F3F3F0', pillFg: done ? '#FFFFFF' : '#141414' })),
+      gpTodo: RULES.filter(r => !r[5]).map(([name, desc, p, path, col]) => ({ name, desc, path, col, tint: TINT[col], pts: '+' + p, pillBg: '#141414', pillFg: '#FFFFFF' })),
+      gpDone: RULES.filter(r => r[5]).map(([name, desc, p, path, col]) => ({ name, desc, path, col, tint: TINT[col], pts: '✓ +' + p, pillBg: '#E6F6EF', pillFg: '#13875F' })),
+      gpHasDone: RULES.some(r => r[5]), gpDoneHdr: 'Already earned this month · ' + RULES.filter(r => r[5]).reduce((t, r) => t + r[2], 0) + ' points',
       gpLeaders: lb.map((r, i) => ({ rank: i + 1, name: r.n, initial: r.n[0], points: r.p, border: r.me ? '#141414' : 'transparent' })), gpRest: lb.slice(3).map((r, i) => ({ rank: i + 4, name: r.n, initial: r.n[0], points: r.p, border: r.me ? '#141414' : 'transparent', ...av(r) })), gpPodium: [1, 0, 2].filter(i => lb[i]).map(i => ({ rank: i + 1, name: lb[i].n, initial: lb[i].n[0], points: lb[i].p, ...av(lb[i]), av: i === 0 ? '64px' : '52px', h: ['100px', '72px', '54px'][i], bg: ['linear-gradient(160deg,#FECA57 0%,#FF9F43 45%,#FF5A5F 100%)', 'linear-gradient(160deg,#A55EEA 0%,#54A0FF 100%)', 'linear-gradient(160deg,#54A0FF 0%,#1DD1A1 100%)'][i] })),
       copyLink: () => this.setState({ copied: true }), copyLabel: s.copied ? 'Copied ✓' : 'Copy link', shareLink: () => this.flash('Opening the share sheet'),
       loginAsk: s.loginAsk, closeLogin: () => this.setState({ loginAsk: false }),
