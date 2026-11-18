@@ -660,17 +660,6 @@
                       <span style="width:22px;height:22px;border-radius:50%;border:1.5px solid {{ c.chkB }};background:{{ c.chk }};display:flex;align-items:center;justify-content:center"><svg width="11" height="11" viewBox="0 0 12 12" style="opacity:{{ c.op }}"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
                     </button>
                   </sc-for>
-                  <button onClick="{{ toggleOther }}" style="width:100%;height:58px;display:flex;align-items:center;gap:14px;padding:0 20px;border:0;border-top:1px solid #F1F1EE;background:transparent;cursor:pointer;text-align:left;color:#141414">
-                    <span style="width:34px;height:34px;flex:none;border-radius:50%;background:{{ otherRB }};display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ otherIc }}"></path></svg></span>
-                    <span style="flex:1;display:flex;flex-direction:column"><span style="font:400 14px Poppins">Other</span><span style="font:400 11px Poppins;color:#8A8A86">Write your own category</span></span>
-                    <sc-if value="{{ otherClosed }}" hint-placeholder-val="{{ true }}"><span style="font:400 20px Poppins;color:#8A8A86">+</span></sc-if>
-                  </button>
-                  <sc-if value="{{ otherOpen }}" hint-placeholder-val="{{ false }}">
-                    <div style="display:flex;gap:8px;padding:0 20px 14px">
-                      <div style="flex:1;padding:1.5px;border-radius:22px;background:{{ otherRB }}"><input value="{{ otherTxt }}" onChange="{{ setOtherTxt }}" placeholder="e.g. Garden tools" style="width:100%;height:41px;box-sizing:border-box;border:0;border-radius:20.5px;background:#FFFFFF;padding:0 16px;font:400 14px Poppins;color:#141414;outline:none"></div>
-                      <button onClick="{{ addOther }}" style="flex:none;height:44px;padding:0 18px;border:0;border-radius:22px;background:#141414;color:#FFFFFF;font:500 13px Poppins;cursor:pointer;opacity:{{ otherAddOp }}">Add</button>
-                    </div>
-                  </sc-if>
                 </div>
                 <div style="padding:12px 20px 0;border-top:1px solid #F1F1EE"><button onClick="{{ closeCats }}" style="width:100%;height:52px;border:0;border-radius:26px;background:linear-gradient(180deg,#2A2A2E,#141414);color:#FFFFFF;font:500 15px Poppins;cursor:pointer">{{ sheetCta }}</button></div>
               </div>
@@ -985,7 +974,7 @@ const UPM = {"1438761681033-6461ffad8d80": "assets/1438761681033-6461ffad8d80.jp
 const UPU = id => UPM[id] || `https://images.unsplash.com/photo-${id}?w=600&q=70&auto=format&fit=crop`;
 const UP = id => `url("${UPU(id)}") center/cover`;
 const P = {
-  other: 'M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594zM20 2v4M22 4h-4M2 20a2 2 0 1 0 4 0a2 2 0 1 0 -4 0',
+  other: 'M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1ZM4 14h5a1 1 0 0 1 1 1v5a1 1 0 0 1 -1 1h-5a1 1 0 0 1 -1 -1v-5a1 1 0 0 1 1 -1zM14 17.5a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0',
   heart: 'M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5',
   gift: 'M12 7v14M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5M4 7h16a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z',
   hand: 'M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15',
@@ -1038,6 +1027,7 @@ const ITEM_CATS = [
 ];
 const ITEM_CAT = Object.fromEntries(ITEM_CATS.map(([l]) => [l, 1]));
 const CAT = Object.fromEntries([...CATS, ...ITEM_CATS].map(([l, c, p]) => [l, { col: c, path: p }]));
+['Other', 'Garden tools', 'Plants', 'Camping gear', 'Board games'].forEach(l => { CAT[l] = { col: '#5E5E5A', path: P.other, rb: true }; });
 const TYPE = { Ask: ['Needs help', '#FF5A5F'], Offer: ['Offers', '#1DD1A1'], Meetup: ['Event', '#A55EEA'] };
 const AV = ['#A55EEA', '#FF5A5F', '#1DD1A1', '#54A0FF', '#FF9F43'];
 const POSTS = [
@@ -1066,6 +1056,10 @@ const POSTS = [
   { id: 24, type: 'Ask', kind: 'object', cat: "Children's items", title: 'Baby clothes, 0–6 months', body: 'Our daughter was born last month. Bodysuits and a warm blanket would help a lot.', who: 'Sofia', whoNote: 'Mum of one', area: 'Hollerich', when: 'Yesterday', photo: '1515488042361-ee00e0ddd4e4' },
   { id: 40, type: 'Ask', kind: 'object', cat: 'Bicycles', title: 'An adult bike to get to work', body: 'I start a new job in Cloche d\'Or next month. A simple city bike would save me two buses every morning.', who: 'Yonas', whoNote: 'New in Luxembourg', area: 'Gasperich', when: 'Yesterday', photo: '1629056007607-f3e5de821891' },
   { id: 41, type: 'Ask', kind: 'object', cat: 'Clothes', title: 'Winter coat for a 6-year-old', body: 'Our son grew a lot this year. Any warm coat in size 116–122 would be perfect.', who: 'Leila', whoNote: 'Mum of three', area: 'Bonnevoie', when: '3 days ago', photo: '1622218286192-95f6a20083c7' },
+  { id: 42, type: 'Offer', kind: 'object', cat: 'Garden tools', title: 'Trowel and pruning shears', body: 'We moved to a flat without a garden. Both work well, come and pick them up.', who: 'Marc', whoNote: 'Neighbour', area: 'Belair', when: 'Today', photo: '1416879595882-3373a0480b5b' },
+  { id: 43, type: 'Offer', kind: 'object', cat: 'Plants', title: 'Succulents in pots, take one', body: 'I have too many! Six small pots, easy to look after.', who: 'Ana', whoNote: 'Neighbour', area: 'Limpertsberg', when: 'Yesterday', photo: '1485955900006-10f4d324d411' },
+  { id: 44, type: 'Offer', kind: 'object', cat: 'Camping gear', title: 'Two-person tent', body: 'Used twice. All poles and pegs are in the bag.', who: 'Tom', whoNote: 'Neighbour', area: 'Cents', when: '4 days ago', photo: '1504280390367-361c6d9f38f4' },
+  { id: 45, type: 'Ask', kind: 'object', cat: 'Board games', title: 'Board games for a youth evening', body: 'We run a Friday evening for teenagers at the community centre. Simple games in any language are welcome.', who: 'Youth club Gare', whoNote: 'Organisation', area: 'Gare', when: 'Today' },
   { id: 30, type: 'Meetup', cat: "Kids' things", title: 'Book swap & story hour', body: 'Swap the books your kids have outgrown and stay for stories in French, English and Arabic.', who: 'Biblioteca Bonnevoie', whoNote: 'Organisation', area: 'Bonnevoie', when: 'Wed 11 Nov', going: 18, photo: '1455884981818-54cb785db6fc' },
   { id: 31, type: 'Meetup', cat: 'Sports', title: 'Street basketball for teens', body: 'Mixed teams, all levels. Balls provided, just bring water.', who: 'Club Sportif Gare', whoNote: 'Organisation', area: 'Gare', when: 'Wed 11 Nov', going: 22, photo: '1546519638-68e109498ffc' },
   { id: 32, type: 'Meetup', cat: 'Music', title: 'Music jam for all ages', body: 'Bring an instrument or your voice. We have guitars and drums to lend.', who: 'Maison des jeunes', whoNote: 'Organisation', area: 'Limpertsberg', when: 'Thu 12 Nov', going: 11, photo: '1510915361894-db8b60106cb1' },
@@ -1379,7 +1373,8 @@ class Component extends DCLogic {
     else this.openChat('p' + p.id, p.who, p.title, p.type === 'Ask' ? `Hi ${p.who}, I can help with this.` : `Hi ${p.who}, I'd like this if it's still available.`);
   }
   _rv() {
-    (this.state.customCats || []).forEach(c => { if (!CAT[c.l]) CAT[c.l] = { col: '#FFFFFF', path: P.other, rb: true }; });
+    (this.state.customCats || []).forEach(c => { if (!CAT[c.l]) CAT[c.l] = { col: '#5E5E5A', path: P.other, rb: true }; });
+    const OTH = 'linear-gradient(135deg,#FFE1E1 0%,#FFF2CF 32%,#D5F5EA 58%,#DCEAFF 80%,#EBDDFB 100%)';
     const RBG = 'conic-gradient(from 200deg,#FF5A5F,#FF9F43,#FECA57,#1DD1A1,#54A0FF,#A55EEA,#FF5A5F)';
     const s = this.state, all = this.all(), cf = s.catFs || [];
     const myCats = k => (s.customCats || []).filter(c => c.kind === k).map(c => [c.l, '#FFFFFF', P.other, true]);
@@ -1389,7 +1384,7 @@ class Component extends DCLogic {
     const isItem = p => p.type !== 'Meetup' && (p.kind === 'object' || !!ITEM_CAT[p.cat]);
     const DF = s.typeF === 'Items' ? (s.dirF === 'Ask' ? 'Ask' : 'Offer') : (s.dirF || 'all');
     const inTab = p => (s.typeF === 'Items' ? isItem(p) : s.typeF === 'Time' ? (p.type !== 'Meetup' && !isItem(p)) : p.type === 'Meetup') && (s.typeF === 'Meetup' || DF === 'all' || p.type === DF);
-    const list = all.filter(p => inTab(p) && (!cf.length || cf.includes(p.cat)));
+    const list = all.filter(p => inTab(p) && (!cf.length || cf.includes(p.cat) || (cf.includes('Other') && CAT[p.cat] && CAT[p.cat].rb)));
     const post = all.find(p => p.id === s.postId);
     const aim = AIMS.find(a => a.k === s.aims[s.aims.length - 1]) || AIMS[0];
     const hasGet = s.step === 2, total = hasGet ? 3 : 2;
@@ -1419,7 +1414,7 @@ class Component extends DCLogic {
     const rated = s.rateVote;
     const nav = (k, label, path) => { const on = s.tab === k && !PROFP.includes(s.sheet); return { label, path, bg: on ? '#EDEDEA' : 'transparent', fg: on ? '#141414' : '#8A8A86', dot: on ? 1 : 0, pick: () => this.setState({ tab: k, postId: null, chatKey: null, ai: false, compose: false, orgId: null, sheet: null }) }; };
     const lb = [...LB.map(([n, p, img]) => ({ n, p, img, me: false })), { n: 'You', p: s.gpPoints, img: 'assets/pasted-1793960687139-0.png', me: true }].sort((a, b) => b.p - a.p), av = r => ({ avBg: r.img ? 'url("' + r.img + '") center 25%/cover' : '#E6E6E2', initCol: r.img ? 'transparent' : '#141414' });
-    const cardOf = p => { const liked = s.likes.includes(p.id); return { ...pv(p), heart: liked ? '#FF5A5F' : 'none', heartS: liked ? '#FF5A5F' : '#FFFFFF', heartD: liked ? '#FF5A5F' : '#141414', likeN: (p.id * 7) % 23 + 4 + (liked ? 1 : 0), like: e => { e.stopPropagation(); this.tog('likes', p.id); }, open: () => this.setState({ postId: p.id }), tint: CAT[p.cat].rb ? RBG : (TINT[CAT[p.cat].col] || '#F3F3F0'), help: e => { e.stopPropagation(); this.primary(p); } }; };
+    const cardOf = p => { const liked = s.likes.includes(p.id); return { ...pv(p), heart: liked ? '#FF5A5F' : 'none', heartS: liked ? '#FF5A5F' : '#FFFFFF', heartD: liked ? '#FF5A5F' : '#141414', likeN: (p.id * 7) % 23 + 4 + (liked ? 1 : 0), like: e => { e.stopPropagation(); this.tog('likes', p.id); }, open: () => this.setState({ postId: p.id }), tint: CAT[p.cat].rb ? OTH : (TINT[CAT[p.cat].col] || '#F3F3F0'), help: e => { e.stopPropagation(); this.primary(p); } }; };
     const GL = { All: ['#A55EEA', '#54A0FF', P.board], Items: ['#FF9F43', '#FF5A5F', P.gift], Ask: ['#FF5A5F', '#F06AB0', P.heart], Time: ['#1DD1A1', '#54A0FF', P.hand], Meetup: ['#54A0FF', '#A55EEA', P.users] };
     return {
       isOnb0: s.screen === 'onb' && s.step === 0, isOnb1: s.screen === 'onb' && s.step === 1, isOnb2: s.screen === 'onb' && s.step === 2, isOnb3: s.screen === 'onb' && s.step === 3, isApp: s.screen === 'app',
@@ -1484,7 +1479,7 @@ class Component extends DCLogic {
       sections: [{ title: 'Needs help', sub: 'Neighbours asking for a hand', list: all.filter(p => p.type === 'Ask' && !isItem(p)), more: () => this.setState({ dirF: 'Ask' }) }, ...CATS.map(([l]) => ({ title: l, sub: 'Offered by neighbours', list: all.filter(p => p.type === 'Offer' && !isItem(p) && p.cat === l), more: () => this.setState({ catFs: [l] }) }))].filter(x => x.list.length).map(x => ({ title: x.title, sub: x.sub, more: x.more, items: x.list.map(cardOf) })),
       openCatsStop: e => { e.stopPropagation(); this.setState({ cats: true }); },
       typeSegs: seg([['All', 'All'], ['Ask', 'Needs help'], ['Offer', 'Offers'], ['Meetup', 'Events']], s.typeF, k => this.setState({ typeF: k })),
-      quickCats: (s.typeF === 'Items' ? [...myCats('Items').map(c => c[0]), ...ITEM_CATS.map(c => c[0])] : [...new Set([...cf, ...myCats('Time').map(c => c[0]), ...s.interests.filter(l => !ITEM_CAT[l]), ...CATS.map(c => c[0])])].slice(0, 9)).map(l => { const on = cf.includes(l); return { label: l, col: CAT[l].col, path: CAT[l].path, border: on ? '#141414' : '#FFFFFF', chipBg: CAT[l].rb ? `linear-gradient(#FFFFFF,#FFFFFF) padding-box,${RBG} border-box` : '#FFFFFF', chipB: CAT[l].rb && !on ? 'transparent' : (on ? '#141414' : '#FFFFFF'), xOp: on ? 1 : 0, pick: () => this.setState({ catFs: on ? cf.filter(x => x !== l) : [...cf, l] }) }; }),
+      quickCats: (s.typeF === 'Items' ? [...ITEM_CATS.map(c => c[0]), 'Other'] : [...new Set([...cf, ...s.interests.filter(l => !ITEM_CAT[l]), ...CATS.map(c => c[0])])].slice(0, 9)).map(l => { const on = cf.includes(l); return { label: l, col: CAT[l].col, path: CAT[l].path, border: on ? '#141414' : '#FFFFFF', chipBg: '#FFFFFF', chipB: on ? '#141414' : '#FFFFFF', xOp: on ? 1 : 0, pick: () => this.setState({ catFs: on ? cf.filter(x => x !== l) : [...cf, l] }) }; }),
       openCats: () => this.setState({ cats: true }), catCount: cf.length, catCountOp: cf.length ? 1 : 0,
       isNeedHome: s.role === 'need', isGiveHome: s.role === 'give', isOrgHome: s.role === 'org',
       roleLabel: { need: 'Person', give: 'Person', person: 'Person', org: 'Organisation' }[s.role], roleCol: { need: '#FF9F43', give: '#FF9F43', person: '#FF9F43', org: '#54A0FF' }[s.role],
@@ -1497,7 +1492,7 @@ class Component extends DCLogic {
       composeObject: () => !this.gate() && this.setState({ compose: true, draft: { type: 'Offer', kind: 'object', title: '', body: '', cat: 'Bicycles' } }),
       composeTime: () => !this.gate() && this.setState({ compose: true, draft: { type: 'Offer', kind: 'time', title: '', body: '', cat: 'Language practice' } }),
       composeEvent: () => !this.gate() && this.setState({ compose: true, draft: { type: 'Meetup', title: '', body: '', cat: 'Volunteering' } }), clearCatOnly: () => this.setState({ catFs: [] }), sheetCta: cf.length ? `Show ${list.length} result${list.length === 1 ? '' : 's'}` : 'Show everything', closeCats: () => this.setState({ cats: false }), clearCat: () => this.setState({ cats: false, catFs: [] }), catsOn: s.cats, otherOpen: !!s.otherOpen, otherClosed: !s.otherOpen, otherTxt: s.otherTxt || '', otherRB: RBG, otherIc: P.other, toggleOther: () => this.setState({ otherOpen: !s.otherOpen }), setOtherTxt: e => this.setState({ otherTxt: e.target.value }), otherAddOp: (s.otherTxt || '').trim() ? 1 : 0.4, addOther: () => { const l = (s.otherTxt || '').trim(); if (!l) return; const kind = s.typeF === 'Items' ? 'Items' : 'Time'; this.setState(st => ({ customCats: [...(st.customCats || []).filter(c => c.l !== l), { l, kind }], catFs: [...(st.catFs || []).filter(x => x !== l), l], otherTxt: '', otherOpen: false })); },
-      sheetCats: [...(s.typeF === 'Items' ? ITEM_CATS : CATS), ...myCats(s.typeF === 'Items' ? 'Items' : 'Time')].map(([l, c, path, rb]) => { const on = cf.includes(l); return { label: l, col: c, tint: rb ? RBG : TINT[c], path, chk: on ? '#141414' : 'transparent', chkB: on ? '#141414' : '#DCDCD6', op: on ? 1 : 0, pick: () => this.setState({ catFs: on ? cf.filter(x => x !== l) : [...cf, l], tab: 'board' }) }; }),
+      sheetCats: [...(s.typeF === 'Items' ? ITEM_CATS : CATS), ['Other', '#5E5E5A', P.other, true]].map(([l, c, path, rb]) => { const on = cf.includes(l); return { label: l, col: c, tint: rb ? OTH : TINT[c], path, chk: on ? '#141414' : 'transparent', chkB: on ? '#141414' : '#DCDCD6', op: on ? 1 : 0, pick: () => this.setState({ catFs: on ? cf.filter(x => x !== l) : [...cf, l], tab: 'board' }) }; }),
       boardEmpty: list.length === 0,
       posts: list.map(cardOf), isReqView: s.typeF === 'Items' && DF === 'Ask', notReqView: !(s.typeF === 'Items' && DF === 'Ask'),
       postOn: !!post,
@@ -1521,9 +1516,9 @@ class Component extends DCLogic {
       limitText: `${s.needsLeft} of 2 asks left this week, so everyone gets a turn.`,
       draftPh: { Ask: 'I need help moving a couch', Offer: 'I can teach Luxembourgish', Meetup: 'Walk in the park on Sunday' }[s.draft.type],
       setTitle: e => this.setState({ draft: { ...this.state.draft, title: e.target.value } }), setBody: e => this.setState({ draft: { ...this.state.draft, body: e.target.value } }),
-      draftCats: [...((s.draft.kind || 'object') === 'object' ? ITEM_CATS : CATS), ...myCats((s.draft.kind || 'object') === 'object' ? 'Items' : 'Time'), ['Other', '#FFFFFF', P.other, true, '__other']].map(([l, c, _p, rb, key]) => { const k0 = key || l, on = s.draft.cat === k0; return { label: l, col: rb ? RBG : (on ? '#FFFFFF' : c), bg: on ? '#141414' : '#FFFFFF', fg: on ? '#FFFFFF' : '#141414', border: on ? '#141414' : '#ECECE8', pick: () => this.setState({ draft: { ...s.draft, cat: k0 } }) }; }), draftOther: s.draft.cat === '__other', draftOtherTxt: s.draft.other || '', setDraftOther: e => this.setState({ draft: { ...this.state.draft, other: e.target.value } }), draftRB: RBG,
+      draftCats: [...((s.draft.kind || 'object') === 'object' ? ITEM_CATS : CATS), ['Other', '#5E5E5A', P.other, true, '__other']].map(([l, c, _p, rb, key]) => { const k0 = key || l, on = s.draft.cat === k0; return { label: l, col: rb ? (on ? '#FFFFFF' : RBG) : (on ? '#FFFFFF' : c), bg: on ? '#141414' : '#FFFFFF', fg: on ? '#FFFFFF' : '#141414', border: on ? '#141414' : '#ECECE8', pick: () => this.setState({ draft: { ...s.draft, cat: k0 } }) }; }), draftOther: s.draft.cat === '__other', draftOtherTxt: s.draft.other || '', setDraftOther: e => this.setState({ draft: { ...this.state.draft, other: e.target.value } }), draftRB: RBG,
       publishOp: s.draft.title.trim() ? 1 : 0.4,
-      publish: () => { const d0 = s.draft, oth = (d0.other || '').trim(), d = d0.cat === '__other' ? { ...d0, cat: oth || '' } : d0; if (!d.title.trim()) return; const ck = (d.kind || 'object') === 'object' ? 'Items' : 'Time'; if (d0.cat === '__other' && oth) { CAT[oth] = CAT[oth] || { col: '#FFFFFF', path: P.other, rb: true }; this.setState(st => ({ customCats: [...(st.customCats || []).filter(c => c.l !== oth), { l: oth, kind: ck }] })); } if (d.type === 'Ask' && s.needsLeft <= 0) return this.flash('You have used your 2 asks this week.');
+      publish: () => { const d0 = s.draft, oth = (d0.other || '').trim(), d = d0.cat === '__other' ? { ...d0, cat: oth || '' } : d0; if (!d.title.trim()) return; const ck = (d.kind || 'object') === 'object' ? 'Items' : 'Time'; if (d0.cat === '__other' && oth) { CAT[oth] = CAT[oth] || { col: '#5E5E5A', path: P.other, rb: true }; this.setState(st => ({ customCats: [...(st.customCats || []).filter(c => c.l !== oth), { l: oth, kind: ck }] })); } if (d.type === 'Ask' && s.needsLeft <= 0) return this.flash('You have used your 2 asks this week.');
         const pts = d.kind === 'event' ? 40 : d.type === 'Ask' ? 10 : d.kind === 'time' ? 30 : 50, elab = d.kind === 'event' ? 'Event published' : d.type === 'Ask' ? 'Request posted' : d.kind === 'time' ? 'Activity shared' : 'Item posted';
         this.setState(st => ({ extra: [{ id: Date.now(), type: d.type, cat: d.cat || (d.kind === 'object' ? 'Games & toys' : 'Friends'), title: d.title.trim(), body: d.body.trim() || 'No details yet.', kind: d.kind || 'object', days: d.kind === 'event' ? [d.day || 14] : undefined, going: d.kind === 'event' ? 0 : undefined, who: d.kind === 'event' ? 'Vëlosatelier' : 'You', whoNote: d.kind === 'event' ? 'Organisation' : 'Neighbour', area: d.kind === 'event' ? 'Hollerich' : 'Bonnevoie', when: d.kind === 'event' ? (d.day || 14) + ' Nov' : 'Just now' }, ...st.extra], compose: false, tab: 'board', typeF: d.kind === 'event' ? 'Meetup' : d.kind === 'time' ? 'Time' : 'Items', dirF: d.kind === 'event' || d.kind === 'time' ? 'all' : (d.type === 'Ask' ? 'Ask' : 'Offer'), calDay: d.kind === 'event' ? (d.day || 14) : st.calDay, catFs: [], gpPoints: st.gpPoints + pts, earn: { pts, label: elab, from: st.gpPoints }, needsLeft: d.type === 'Ask' ? st.needsLeft - 1 : st.needsLeft }));
          },
