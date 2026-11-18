@@ -188,9 +188,9 @@
                       <sc-if value="{{ p.noPhoto }}" hint-placeholder-val="{{ false }}"><span style="width:58px;height:58px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ p.path }}"></path></svg></span></sc-if>
                       <span onClick="{{ p.like }}" style="position:absolute;right:8px;bottom:8px;height:30px;display:flex;align-items:center;gap:5px;padding:0 11px 0 9px;border-radius:15px;background:rgba(20,20,20,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#FFFFFF;font:500 12px Poppins"><svg width="15" height="15" viewBox="0 0 24 24" fill="{{ p.heart }}" stroke="{{ p.heartS }}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path></svg>{{ p.likeN }}</span>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:6px;padding:0 4px">
+                    <div style="display:flex;flex-direction:column;gap:2px;padding:0 4px">
                       <span style="font:500 13px/1.3 Poppins;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.title }}</span>
-                      <span style="display:flex;align-items:center;gap:6px;min-width:0"><span style="flex:none;height:20px;display:flex;align-items:center;gap:4px;padding:0 8px;border-radius:10px;background:#FFFFFF;font:500 10px Poppins;white-space:nowrap"><span style="width:5px;height:5px;border-radius:50%;background:{{ p.typeCol }}"></span>{{ p.typeLabel }}</span><span style="font:400 11px Poppins;color:#8A8A86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.area }}</span></span>
+                      <span style="font:400 11px Poppins;color:#8A8A86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.area }}</span>
                     </div>
                   </button>
                   </sc-for>
@@ -1355,7 +1355,7 @@ class Component extends DCLogic {
     const vis = p => p.photo ? UP(p.photo) : 'linear-gradient(160deg,#F7F7F5 0%,#EDEDEA 100%)';
     const pv = p => ({ ...p, byline: p.type === 'Meetup' ? 'By ' + p.who : p.who + ' · ' + p.when, col: CAT[p.cat].col, path: CAT[p.cat].path, vis: vis(p), noPhoto: !p.photo, typeLabel: p.type !== 'Meetup' && (p.kind === 'object' || ITEM_CAT[p.cat]) ? (p.type === 'Ask' ? 'Requested' : 'Offered') : TYPE[p.type][0], typeCol: TYPE[p.type][1], meta: p.cat + ' · ' + p.area, initial: p.who[0], avCol: AV[p.who.length % AV.length] });
     const isItem = p => p.type !== 'Meetup' && (p.kind === 'object' || !!ITEM_CAT[p.cat]);
-    const DF = s.dirF || 'all';
+    const DF = s.typeF === 'Items' ? (s.dirF === 'Ask' ? 'Ask' : 'Offer') : (s.dirF || 'all');
     const inTab = p => (s.typeF === 'Items' ? isItem(p) : s.typeF === 'Time' ? (p.type !== 'Meetup' && !isItem(p)) : p.type === 'Meetup') && (s.typeF === 'Meetup' || DF === 'all' || p.type === DF);
     const list = all.filter(p => inTab(p) && (!cf.length || cf.includes(p.cat)));
     const post = all.find(p => p.id === s.postId);
@@ -1427,7 +1427,7 @@ class Component extends DCLogic {
       isAll: s.typeF === 'Time' && !cf.length && DF === 'all', notAll: !(s.typeF === 'Time' && !cf.length && DF === 'all') && !(s.typeF === 'Meetup' && s.evView === 'cal'),
       isCal: s.typeF === 'Meetup' && s.evView === 'cal', showChips: !(s.typeF === 'Meetup' && s.evView === 'cal'),
       showDirF: s.typeF === 'Time' || s.typeF === 'Items', isMeetTab: s.typeF === 'Meetup',
-      dirSeg: seg([['all', 'All'], ['Offer', 'Offered'], ['Ask', s.typeF === 'Items' ? 'Requested' : 'Needs help']], DF, k => this.setState({ dirF: k })),
+      dirSeg: seg(s.typeF === 'Items' ? [['Offer', 'Offered'], ['Ask', 'Requested']] : [['all', 'All'], ['Offer', 'Offered'], ['Ask', 'Needs help']], DF, k => this.setState({ dirF: k })),
       viewSeg: seg([['cards', 'Cards'], ['cal', 'Calendar']], s.evView || 'cards', k => this.setState({ evView: k })),
       ...(() => { const EVD = { 2: [12, 19, 26], 7: [15, 22], 12: [14, 21], 21: [22], 22: [11, 18, 25], 30: [11, 14, 18], 31: [11, 13, 20], 32: [12, 15, 21], 33: [11, 16, 23], 34: [13, 19], 35: [14, 21] };
         const EVT = { 2: '18:30–20:00', 7: '18:00–21:00', 12: '10:00–13:00', 21: '12:00–15:00', 22: '15:00–17:00', 30: '16:00–17:30', 31: '17:00–19:00', 32: '18:00–20:00', 33: '10:00–11:00', 34: '18:30–21:00', 35: '10:00–12:00' };
