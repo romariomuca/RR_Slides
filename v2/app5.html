@@ -181,7 +181,23 @@
               <sc-if value="{{ notAll }}" hint-placeholder-val="{{ false }}">
                 
                 <sc-if value="{{ boardEmpty }}" hint-placeholder-val="{{ false }}"><div style="margin:30px 20px 0;padding:28px;border-radius:24px;background:#FFFFFF;text-align:center;font:400 14px/1.45 Poppins;color:#5E5E5A">Nothing here yet. Be the first to post!</div></sc-if>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 12px;margin-top:16px;padding:0 20px">
+                <sc-if value="{{ isReqView }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;padding:0 20px">
+                  <sc-for list="{{ posts }}" as="p" hint-placeholder-count="3">
+                  <button onClick="{{ p.open }}" style="border:0;padding:16px;background:#FFFFFF;border-radius:24px;cursor:pointer;text-align:left;color:#141414;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 24px -20px rgba(20,20,20,.35)">
+                    <span style="display:flex;align-items:center;gap:10px">
+                      <span style="width:40px;height:40px;flex:none;border-radius:50%;background:{{ p.tint }};display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{ p.col }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ p.path }}"></path></svg></span>
+                      <span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font:500 12px Poppins">{{ p.who }}</span><span style="font:400 11px Poppins;color:#8A8A86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.area }} · {{ p.when }}</span></span>
+                      <span style="flex:none;height:24px;display:flex;align-items:center;padding:0 10px;border-radius:12px;background:#F3F3F0;font:500 10px Poppins;color:#5E5E5A;white-space:nowrap">{{ p.cat }}</span>
+                    </span>
+                    <span style="font:400 18px/1.25 Poppins;letter-spacing:-0.02em">{{ p.title }}</span>
+                    <span style="font:400 12px/1.5 Poppins;color:#5E5E5A;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ p.body }}</span>
+                    <span onClick="{{ p.help }}" style="align-self:flex-start;margin-top:2px;height:38px;display:flex;align-items:center;gap:6px;padding:0 16px;border-radius:19px;background:#141414;color:#FFFFFF;font:500 12px Poppins">I have this</span>
+                  </button>
+                  </sc-for>
+                </div>
+                </sc-if>
+                <sc-if value="{{ notReqView }}" hint-placeholder-val="{{ true }}"><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 12px;margin-top:16px;padding:0 20px">
                   <sc-for list="{{ posts }}" as="p" hint-placeholder-count="4">
                   <button onClick="{{ p.open }}" style="border:0;padding:0;background:none;cursor:pointer;text-align:left;color:#141414;display:flex;flex-direction:column;gap:9px;min-width:0">
                     <div style="position:relative;width:100%;aspect-ratio:3/4;border-radius:20px;overflow:hidden;background:{{ p.vis }};display:flex;align-items:center;justify-content:center">
@@ -195,6 +211,7 @@
                   </button>
                   </sc-for>
                 </div>
+                </sc-if>
               </sc-if>
             </div>
           </sc-if>
@@ -1387,7 +1404,7 @@ class Component extends DCLogic {
     const rated = s.rateVote;
     const nav = (k, label, path) => { const on = s.tab === k && !PROFP.includes(s.sheet); return { label, path, bg: on ? '#EDEDEA' : 'transparent', fg: on ? '#141414' : '#8A8A86', dot: on ? 1 : 0, pick: () => this.setState({ tab: k, postId: null, chatKey: null, ai: false, compose: false, orgId: null, sheet: null }) }; };
     const lb = [...LB.map(([n, p, img]) => ({ n, p, img, me: false })), { n: 'You', p: s.gpPoints, img: 'assets/pasted-1793960687139-0.png', me: true }].sort((a, b) => b.p - a.p), av = r => ({ avBg: r.img ? 'url("' + r.img + '") center 25%/cover' : '#E6E6E2', initCol: r.img ? 'transparent' : '#141414' });
-    const cardOf = p => { const liked = s.likes.includes(p.id); return { ...pv(p), heart: liked ? '#FF5A5F' : 'none', heartS: liked ? '#FF5A5F' : '#FFFFFF', heartD: liked ? '#FF5A5F' : '#141414', likeN: (p.id * 7) % 23 + 4 + (liked ? 1 : 0), like: e => { e.stopPropagation(); this.tog('likes', p.id); }, open: () => this.setState({ postId: p.id }) }; };
+    const cardOf = p => { const liked = s.likes.includes(p.id); return { ...pv(p), heart: liked ? '#FF5A5F' : 'none', heartS: liked ? '#FF5A5F' : '#FFFFFF', heartD: liked ? '#FF5A5F' : '#141414', likeN: (p.id * 7) % 23 + 4 + (liked ? 1 : 0), like: e => { e.stopPropagation(); this.tog('likes', p.id); }, open: () => this.setState({ postId: p.id }), tint: TINT[CAT[p.cat].col] || '#F3F3F0', help: e => { e.stopPropagation(); this.primary(p); } }; };
     const GL = { All: ['#A55EEA', '#54A0FF', P.board], Items: ['#FF9F43', '#FF5A5F', P.gift], Ask: ['#FF5A5F', '#F06AB0', P.heart], Time: ['#1DD1A1', '#54A0FF', P.hand], Meetup: ['#54A0FF', '#A55EEA', P.users] };
     return {
       isOnb0: s.screen === 'onb' && s.step === 0, isOnb1: s.screen === 'onb' && s.step === 1, isOnb2: s.screen === 'onb' && s.step === 2, isOnb3: s.screen === 'onb' && s.step === 3, isApp: s.screen === 'app',
@@ -1467,7 +1484,7 @@ class Component extends DCLogic {
       composeEvent: () => !this.gate() && this.setState({ compose: true, draft: { type: 'Meetup', title: '', body: '', cat: 'Volunteering' } }), clearCatOnly: () => this.setState({ catFs: [] }), sheetCta: cf.length ? `Show ${list.length} result${list.length === 1 ? '' : 's'}` : 'Show everything', closeCats: () => this.setState({ cats: false }), clearCat: () => this.setState({ cats: false, catFs: [] }), catsOn: s.cats,
       sheetCats: (s.typeF === 'Items' ? ITEM_CATS : CATS).map(([l, c, path]) => { const on = cf.includes(l); return { label: l, col: c, tint: TINT[c], path, chk: on ? '#141414' : 'transparent', chkB: on ? '#141414' : '#DCDCD6', op: on ? 1 : 0, pick: () => this.setState({ catFs: on ? cf.filter(x => x !== l) : [...cf, l], tab: 'board' }) }; }),
       boardEmpty: list.length === 0,
-      posts: list.map(cardOf),
+      posts: list.map(cardOf), isReqView: s.typeF === 'Items' && DF === 'Ask', notReqView: !(s.typeF === 'Items' && DF === 'Ask'),
       postOn: !!post,
       post: post ? (() => { const p = pv(post), going = s.joined.includes(p.id), meet = p.type === 'Meetup';
         return { ...p, isMeet: meet, goingLabel: (p.going || 0) + (going ? 1 : 0) + ' people going', priLabel: meet ? (going ? "You're going ✓" : 'Join · +15 points') : p.type === 'Ask' ? 'I can help' : "I'd like this", priBg: going ? '#F3F3F0' : '#141414', priFg: going ? '#141414' : '#FFFFFF', primary: () => this.primary(post), message: () => this.openChat('p' + p.id, p.who, p.title, '') }; })() : {},
