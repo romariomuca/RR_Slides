@@ -45,7 +45,7 @@
       <sc-if value="{{ isOnb1 }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;inset:0;background:#F6F6F4;display:flex;flex-direction:column;overflow:hidden">
           <div onPointerDown="{{ aimDown }}" style="position:absolute;left:-3px;right:-3px;top:0;height:560px;overflow:hidden;touch-action:pan-y;cursor:grab;-webkit-mask-image:linear-gradient(180deg,#000 52%,transparent 80%);mask-image:linear-gradient(180deg,#000 52%,transparent 80%)">
-            <div style="position:absolute;top:0;left:0;height:100%;width:{{ aimTrackW }};display:flex;transform:{{ aimTrack }};transition:{{ aimTr }}">
+            <div style="position:absolute;top:-90px;left:0;height:100%;width:{{ aimTrackW }};display:flex;transform:{{ aimTrack }};transition:{{ aimTr }}">
               <sc-for list="{{ aimSlides }}" as="a" hint-placeholder-count="2">
                 <div style="width:{{ aimSlideW }};height:100%;flex:none;background:{{ a.bg }}"></div>
               </sc-for>
