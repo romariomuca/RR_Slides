@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Riding the Rainbow · Before and after</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap">
+<style>
+:root{--bg:#ECECE8;--ink:#141414;--ink2:#5E5E5A;--card:#FFFFFF;--fill:#F1F1EE}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{height:100%;display:flex;flex-direction:column;align-items:center;padding:16px max(16px,env(safe-area-inset-left)) 12px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.seg{display:inline-flex;padding:4px;border-radius:999px;background:var(--card);box-shadow:0 6px 16px -12px rgba(20,20,20,.35)}
+.seg button{height:38px;padding:0 20px;border:0;border-radius:999px;background:none;font:500 13px Poppins,system-ui,sans-serif;color:var(--ink2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.note{font-size:12px;color:var(--ink2)}
+.stage{flex:1;min-height:0;width:100%;display:flex;justify-content:center;align-items:flex-start;margin-top:10px}
+.frame{width:454px;height:944px;transform-origin:top center;flex:none}
+.frame iframe{width:454px;height:944px;border:0;display:block;background:transparent;clip-path:inset(0 3px 0 0)}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Version">
+      <button id="b-old" aria-pressed="false">Old</button>
+      <button id="b-new" aria-pressed="true">New</button>
+    </div>
+    <span class="note" id="note">Redesigned prototype · tap around, it's interactive</span>
+  </div>
+  <div class="stage" id="stage"><div class="frame" id="frame"><iframe id="app" title="Riding the Rainbow app" src="app5.html" scrolling="no"></iframe></div></div>
+</div>
+<script>
+var V={old:{src:'app.html',note:'First version of the prototype'},new:{src:'app5.html',note:'Redesigned prototype · tap around, it’s interactive'}};
+var f=document.getElementById('app'),fr=document.getElementById('frame'),st=document.getElementById('stage');
+function show(k){if(!V[k])k='new';document.getElementById('b-old').setAttribute('aria-pressed',k==='old');document.getElementById('b-new').setAttribute('aria-pressed',k==='new');
+ if(f.getAttribute('src')!==V[k].src)f.setAttribute('src',V[k].src);document.getElementById('note').textContent=V[k].note;try{history.replaceState(null,'','#'+k)}catch(e){}}
+function fit(){var s=Math.min(1,st.clientHeight/944,st.clientWidth/454);fr.style.transform='scale('+s+')';fr.style.marginBottom=(944*(s-1))+'px'}
+document.getElementById('b-old').onclick=function(){show('old')};document.getElementById('b-new').onclick=function(){show('new')};
+addEventListener('resize',fit);addEventListener('hashchange',function(){show(location.hash.slice(1))});
+show(location.hash.slice(1));fit();
+</script>
+</body></html>
