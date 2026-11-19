@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Riding the Rainbow Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap">
+<style>
+:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--surface);color:var(--ink);font:400 15px/1.55 Poppins,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+code{font:500 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--fill);padding:3px 6px;border-radius:6px}
+header.top{position:sticky;top:0;z-index:10;background:rgba(246,246,244,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topin{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px;overflow-x:auto}
+.brand{font:500 15px Poppins;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.dots{display:flex;gap:3px}.dots i{width:8px;height:8px;border-radius:50%;display:block}
+.topin nav{display:flex;gap:4px;margin-left:auto}
+.topin nav a{font:500 13px Poppins;color:var(--ink-2);text-decoration:none;padding:7px 12px;border-radius:999px;white-space:nowrap}
+.topin nav a:hover{background:var(--surface-card);color:var(--ink)}
+main{max-width:1120px;margin:0 auto;padding:32px 24px 96px}
+.cover{border-radius:28px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-card);margin-bottom:56px;aspect-ratio:960/288;position:relative}
+.cover iframe{position:absolute;inset:0;width:960px;height:288px;border:0;transform-origin:0 0}
+section{margin-top:64px}
+h2{font:500 30px/1.1 Poppins;letter-spacing:-0.03em;margin:0 0 6px}
+.lead{color:var(--ink-2);margin:0 0 24px;max-width:640px}
+h3{font:500 13px Poppins;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3);margin:32px 0 12px}
+.prose{background:var(--surface-card);border-radius:28px;padding:32px 36px;box-shadow:var(--shadow-card);max-width:860px}
+.prose h2{font:500 20px Poppins;letter-spacing:-0.02em;margin:28px 0 10px}
+.prose h2:first-of-type{margin-top:8px}
+.prose h1{display:none}
+.prose p,.prose li{color:var(--ink);max-width:68ch}
+.prose ul{padding-left:20px}.prose li{margin:4px 0}
+.prose li ul{margin:4px 0}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.sw{background:var(--surface-card);border-radius:22px;overflow:hidden;box-shadow:var(--shadow-card)}
+.sw .chip{height:92px;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;font:500 12px Poppins;box-shadow:inset 0 -1px 0 rgba(20,20,20,.06)}
+.sw .chip span:last-child{font-weight:400;opacity:.8}
+.swb{padding:12px 14px 14px}.swb p{margin:8px 0 0;font-size:12px;line-height:1.45;color:var(--ink-2)}
+.types{display:flex;flex-direction:column;gap:10px}
+.ty{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:24px;align-items:center;background:var(--surface-card);border-radius:22px;padding:18px 22px;box-shadow:var(--shadow-card)}
+.tym{display:flex;flex-direction:column;gap:6px;align-items:flex-start}.tym span{font-size:12px;color:var(--ink-3)}.tym p{margin:0;font-size:12px;line-height:1.45;color:var(--ink-2)}
+.tys{min-width:0;overflow-wrap:anywhere}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.card{background:var(--surface-card);border-radius:22px;padding:20px 22px;box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:14px}
+.sp{display:grid;grid-template-columns:72px 120px 52px minmax(0,1fr);gap:12px;align-items:center}
+.sp p{margin:0;font-size:12px;color:var(--ink-2)}.v{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.bar{height:12px;background:var(--purple);border-radius:3px;display:block}
+.hbar{width:40px;background:var(--ink);border-radius:999px;display:block}
+.ras{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.ra{background:var(--surface-card);border-radius:22px;padding:18px;box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.ra p{margin:0;font-size:12px;color:var(--ink-2);line-height:1.45}
+.rbox{width:88px;height:64px;background:var(--coral-soft);border:1.5px solid var(--coral)}
+.sbox{width:100%;height:64px;border-radius:16px;background:var(--surface-card);margin:8px 0 14px}
+.ra:has(.sbox){background:var(--surface)}
+.cnav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.cnav a{height:36px;display:inline-flex;align-items:center;padding:0 14px;border-radius:999px;background:var(--surface-card);box-shadow:var(--shadow-sm);font:500 12px Poppins;color:var(--ink);text-decoration:none}
+.comp{background:var(--surface-card);border-radius:28px;box-shadow:var(--shadow-card);overflow:hidden;margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.ch{grid-column:1/-1;padding:22px 26px 0;display:flex;align-items:baseline;gap:12px}
+.ch h3{margin:0;font:500 22px Poppins;letter-spacing:-0.02em;text-transform:none;color:var(--ink)}
+.grp{font:500 11px Poppins;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3);order:2}
+.comp iframe{width:100%;border:0;margin:16px 0 22px 22px;width:calc(100% - 22px);border-radius:20px;background:var(--surface)}
+.cr{padding:6px 26px 18px;font-size:14px}.cr p,.cr li{color:var(--ink);line-height:1.55}.cr ul{padding-left:18px}.cr li{margin:5px 0}
+footer{max-width:1120px;margin:0 auto;padding:0 24px 48px;color:var(--ink-3);font-size:12px}
+@media (max-width:760px){
+ main{padding:20px 16px 72px}.topin{padding:10px 16px}.topin nav{margin-left:8px}
+ .ty{grid-template-columns:1fr;gap:12px}.comp{grid-template-columns:1fr}.comp iframe{margin:14px 16px 0;width:calc(100% - 32px)}
+ .sp{grid-template-columns:48px 1fr 44px}.sp p{grid-column:1/-1}
+ .prose{padding:22px 20px}
+}
+</style></head><body>
+<header class="top"><div class="topin"><span class="brand"><span class="dots"><i style="background:var(--coral)"></i><i style="background:var(--orange)"></i><i style="background:var(--mint)"></i><i style="background:var(--purple)"></i></span>Riding the Rainbow · Design System</span>
+<nav><a href="#overview">Overview</a><a href="#color">Colour</a><a href="#type">Type</a><a href="#space">Space &amp; shape</a><a href="#components">Components</a><a href="#status">Status</a></nav></div></header>
+<main>
+<div class="cover" id="cv"><iframe title="Cover" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Cover&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+html,body{margin:0;height:100%}
+body{background:var(--surface);font-family:Poppins,system-ui,sans-serif;overflow:hidden}
+.wrap{position:relative;width:960px;height:288px}
+svg{position:absolute;left:0;top:0}
+.ink{fill:var(--ink)}.coral{fill:var(--coral)}.orange{fill:var(--orange)}.mint{fill:var(--mint)}.purple{fill:var(--purple)}.cut{fill:var(--surface)}
+.xl{rx:var(--radius-xl)}
+.txt{position:absolute;left:40px;bottom:36px;width:420px;display:flex;flex-direction:column;gap:12px}
+h1{margin:0;font:500 72px/.95 Poppins,system-ui,sans-serif;letter-spacing:-0.035em;color:var(--ink)}
+p{margin:0;font:400 14px/1.4 Poppins,system-ui,sans-serif;color:var(--ink-2)}
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;&lt;div class=&quot;wrap&quot;&gt;
+&lt;svg width=&quot;960&quot; height=&quot;288&quot; viewBox=&quot;0 0 960 288&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;!-- blocks: ink slab 120x240 (radius-xl), coral 300x56, orange 180x56, mint 240x56, purple 140x56 pills (radius-full = half of 56)
+     arrangement: one tall slab with a staggered stack of chip-shaped bands to its right, purple bleeding off the bottom edge
+     pattern: discs and pills (radius-full) — the system is soft and friendly: everything you touch is a pill (README: radius-full for buttons, chips, bottom bar)
+     steps: gap space-12 between bands, space-20 from slab to stack; radii radius-xl, radius-full --&gt;
+&lt;rect class=&quot;ink xl&quot; x=&quot;500&quot; y=&quot;24&quot; width=&quot;120&quot; height=&quot;240&quot;/&gt;
+&lt;circle class=&quot;cut&quot; cx=&quot;560&quot; cy=&quot;84&quot; r=&quot;16&quot;/&gt;&lt;circle class=&quot;cut&quot; cx=&quot;560&quot; cy=&quot;144&quot; r=&quot;16&quot;/&gt;&lt;circle class=&quot;cut&quot; cx=&quot;560&quot; cy=&quot;204&quot; r=&quot;16&quot;/&gt;
+&lt;rect class=&quot;coral&quot; x=&quot;640&quot; y=&quot;24&quot; width=&quot;300&quot; height=&quot;56&quot; rx=&quot;28&quot;/&gt;
+&lt;rect class=&quot;orange&quot; x=&quot;640&quot; y=&quot;92&quot; width=&quot;180&quot; height=&quot;56&quot; rx=&quot;28&quot;/&gt;
+&lt;rect class=&quot;mint&quot; x=&quot;700&quot; y=&quot;160&quot; width=&quot;240&quot; height=&quot;56&quot; rx=&quot;28&quot;/&gt;
+&lt;rect class=&quot;purple&quot; x=&quot;640&quot; y=&quot;228&quot; width=&quot;140&quot; height=&quot;56&quot; rx=&quot;28&quot;/&gt;
+&lt;circle class=&quot;coral&quot; cx=&quot;868&quot; cy=&quot;120&quot; r=&quot;28&quot;/&gt;
+&lt;/svg&gt;
+&lt;div class=&quot;txt&quot;&gt;&lt;h1&gt;Riding the Rainbow&lt;/h1&gt;&lt;p&gt;A calm neighbourhood app: black to act, the rainbow to carry meaning.&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+"></iframe></div>
+<section id="overview" style="margin-top:0"><h2>Overview</h2><p class="lead">The rules behind the AppV5 prototype: tone, colour, type, shape and states.</p><div class="prose"><p>Riding the Rainbow (Solidarity Hub) is Afrilanthropy's neighbourhood app in Luxembourg: people ask for and offer items, activities and events, talk in chat and meet in safe places. The interface is light and calm, in the spirit of Airbnb and Vinted: lots of white, one ink colour, and six rainbow colours used only to carry meaning.</p>
+<p>This system describes the AppV5 prototype after the alignment of 19 November 2026: the app's colours, CTAs, labels and copy already use these tokens. The <strong>Status and next steps</strong> section lists what has been unified and what is still open (radii, shadows, section titles).</p>
+<h2>Content and tone</h2>
+<ul>
+<li>The UI is in English, in sentence case: "Mark as received", "Your post is live". Never Title Case on buttons.</li>
+<li>Address people as "you", direct and warm, with no exclamation marks and no emoji in the UI.</li>
+<li>Every thing has <strong>one name</strong>: <strong>Chat</strong> (bar and page title), <strong>Items · Activities · Events</strong> (always plural in tabs, Post included), <strong>Needed · Offered · Event</strong> for the post type, <strong>Rainbow points</strong> for points.</li>
+<li>Errors say what happened and what to do: "Not sent · Tap to retry", "Location is off · Showing Luxembourg City centre".</li>
+<li>Separate metadata with a middle dot: <code>~700 m · Bonnevoie · 2 h ago</code>.</li>
+</ul>
+<h2>Colour</h2>
+<ul>
+<li>The base is neutral. The page background is <code>surface</code>, cards and sheets are <code>surface-card</code>, secondary elements use <code>fill</code>, borders use <code>line</code>.</li>
+<li>Text has three levels: <code>ink</code> for primary, <code>ink-2</code> for secondary, <code>ink-3</code> for metadata, labels and inactive items. Lighter greys (#A3A39E) are only for decoration such as street names on the map, never for text people need to read.</li>
+<li>Inactive filter chips are <code>surface-card</code> with <code>shadow-sm</code> on every screen (Home, Map, Chat). The active one is <code>ink</code>. <code>fill</code> is for secondary elements, not for filter chips.</li>
+<li>The only solid action on a screen is <code>ink</code> with <code>on-ink</code> text. Black is the primary colour, not the rainbow.</li>
+<li>The rainbow (<code>coral</code>, <code>orange</code>, <code>yellow</code>, <code>mint</code>, <code>blue</code>, <code>purple</code>) codes categories and types: Needed <code>coral</code>, Offered <code>mint</code>, Event <code>purple</code>, Items <code>orange</code>. Use it on rings, icons, pins and tints (<code>*-soft</code>), <strong>never as small text colour</strong>: <code>orange</code>, <code>yellow</code> and <code>mint</code> are below 2.5:1 on white.</li>
+<li>The rainbow gradient belongs to the brand: Rainbow points and the invite QR frame. Gradient text only at 20px and above.</li>
+<li>The Home and Post headers have a soft gradient in the type's colour that fades into <code>surface</code>. Map, Chat, Notifications and the Profile pages have a neutral header.</li>
+<li>Semantic colours are separate from the rainbow:</li>
+<li>Safe places and verification: <code>safe</code> for pins and badges, <code>safe-ink</code> for text, <code>safe-soft</code> for backgrounds.</li>
+<li>Errors and destructive actions: <code>danger</code>, on <code>surface-card</code> only.</li>
+<li>Urgency: <code>urgent-ink</code> on <code>danger-soft</code>.</li>
+<li>Expired: <code>warning-ink</code> on <code>yellow-soft</code>.</li>
+<li>The unread dot and badge are <code>coral</code> with <code>on-ink</code> text.</li>
+</ul>
+<h2>Typography</h2>
+<ul>
+<li>One family: Poppins (Google Fonts), weights 400 and 500. 600 is not used.</li>
+<li><code>page-title</code> for tabs (Chat, Profile), <code>display</code> for onboarding and confirmation overlays, <code>section-title</code> for sheets and large sections, <code>card-title</code> for card titles.</li>
+<li>Running text is <code>body</code>. List rows and descriptions are <code>body-sm</code>, metadata is <code>meta</code> in <code>ink-3</code>.</li>
+<li>Section labels are <code>label</code> (11px, uppercase, 1.5px tracking, <code>ink-3</code>).</li>
+<li>Controls use <code>button</code> for CTAs, <code>chip</code> for chips and filters, <code>tag</code> for status pills.</li>
+<li>Headings get negative tracking (−0.02 to −0.03em); running text gets none.</li>
+</ul>
+<h2>Space, shape, depth</h2>
+<ul>
+<li>The side gutter is <code>space-16</code>. Cards sit <code>space-12</code> apart, chips <code>space-8</code>, sections <code>space-24</code>.</li>
+<li>Radii:</li>
+<li><code>radius-full</code> for everything you tap: buttons, chips, pills, avatars, bottom bar.</li>
+<li><code>radius-lg</code> for list cards.</li>
+<li><code>radius-xl</code> for hero cards and sheets.</li>
+<li><code>radius-md</code> for photos and bubbles.</li>
+<li><code>radius-sm</code> for thumbnails.</li>
+<li>Shadows:</li>
+<li><code>shadow-card</code> for cards on <code>surface</code>.</li>
+<li><code>shadow-float</code> for anything floating (bottom bar, toasts, banners, sheets).</li>
+<li><code>shadow-sm</code> for filter chips and pins.</li>
+<li>No coloured borders on cards.</li>
+<li>Control heights: <code>control-lg</code> (52px) for the primary CTA and inputs, <code>control-md</code> (38px) for secondary buttons, <code>control-chip</code> (36px) for filter chips, <code>control-sm</code> (32px) for quick replies and small buttons, <code>icon-btn</code> (44px) for round buttons.</li>
+<li>A pill inside a pill is concentric: inner radius = outer radius − padding (bottom bar 33px, active item 27px with 6px padding).</li>
+</ul>
+<h2>Iconography</h2>
+<ul>
+<li>Icons are Lucide, 1.6–1.8px stroke, in <code>ink</code> (or <code>on-ink</code> on black). Sizes: 16, 19 and 22px.</li>
+<li>Category icons sit in a <code>radius-sm</code> square with a <code>*-soft</code> background and the glyph in the full colour.</li>
+<li>No emoji or text symbols (✓, ★) in the UI: use the matching Lucide icon.</li>
+<li>No logo or mark is in the sources: set the name in Poppins 500.</li>
+</ul>
+<h2>States</h2>
+<ul>
+<li><strong>Offline:</strong> an <code>ink</code> pill with <code>on-ink</code> text at the top: "You're offline · we'll send things when you're back".</li>
+<li><strong>Failed send:</strong> "Not sent · Tap to retry" in <code>danger</code> under the bubble.</li>
+<li><strong>Permission denied:</strong> a <code>surface-card</code> banner with <code>shadow-float</code>, an icon, two lines and an <code>ink</code> "Turn on" CTA.</li>
+<li><strong>Loading:</strong> skeletons in <code>fill</code> with a shimmer. <strong>Empty:</strong> a title, one line and a single CTA.</li>
+<li><strong>Toast:</strong> an <code>ink</code> pill that stays 2 seconds, with a ✕ to dismiss it.</li>
+</ul></div></section>
+<section id="color"><h2>Colour</h2><p class="lead">29 tokens. Ink and neutrals do the work; the rainbow carries meaning. Contrast is measured against white.</p><h3>Ink & surfaces</h3><div class="swatches"><div class="sw"><div class="chip" style="background:#141414;color:#FFFFFF"><span>#141414</span><span>18.4:1 on white</span></div><div class="swb"><code>ink</code><p>Primary text, icons, the solid primary CTA. On surface, surface-card and fill.</p></div></div><div class="sw"><div class="chip" style="background:#5E5E5A;color:#FFFFFF"><span>#5E5E5A</span><span>6.5:1 on white</span></div><div class="swb"><code>ink-2</code><p>Secondary text (descriptions, subtitles). On surface and surface-card (6:1).</p></div></div><div class="sw"><div class="chip" style="background:#6B6B67;color:#FFFFFF"><span>#6B6B67</span><span>5.4:1 on white</span></div><div class="swb"><code>ink-3</code><p>Metadata, uppercase labels and inactive nav items (times, neighbourhoods, &#x27;CONVERSATIONS&#x27;). On surface-card and surface (5:1).</p></div></div><div class="sw"><div class="chip" style="background:#FFFFFF;color:#141414"><span>#FFFFFF</span><span>1.0:1 on white</span></div><div class="swb"><code>on-ink</code><p>Text and icons on an ink fill (primary CTA, toasts, active pins).</p></div></div><div class="sw"><div class="chip" style="background:#ECECE8;color:#141414"><span>#ECECE8</span><span>1.2:1 on white</span></div><div class="swb"><code>frame</code><p>Background behind the phone / canvas; also hairlines between list rows.</p></div></div><div class="sw"><div class="chip" style="background:#F6F6F4;color:#141414"><span>#F6F6F4</span><span>1.1:1 on white</span></div><div class="swb"><code>surface</code><p>App page background; where every header gradient fades to.</p></div></div><div class="sw"><div class="chip" style="background:#FFFFFF;color:#141414"><span>#FFFFFF</span><span>1.0:1 on white</span></div><div class="swb"><code>surface-card</code><p>Cards, sheets, bottom bar, inputs, inactive filter chips (Home, Map, Chat).</p></div></div><div class="sw"><div class="chip" style="background:#F1F1EE;color:#141414"><span>#F1F1EE</span><span>1.1:1 on white</span></div><div class="swb"><code>fill</code><p>Background for secondary elements: active bottom-bar item, segmented track, quick replies, skeletons, the Request pill.</p></div></div><div class="sw"><div class="chip" style="background:#ECECE8;color:#141414"><span>#ECECE8</span><span>1.2:1 on white</span></div><div class="swb"><code>line</code><p>1px borders and dividers on surface-card.</p></div></div><div class="sw"><div class="chip" style="background:#DCDCD6;color:#141414"><span>#DCDCD6</span><span>1.4:1 on white</span></div><div class="swb"><code>line-strong</code><p>Borders of inputs and secondary buttons, track of switched-off toggles.</p></div></div></div><h3>Rainbow</h3><div class="swatches"><div class="sw"><div class="chip" style="background:#FF5A5F;color:#141414"><span>#FF5A5F</span><span>3.1:1 on white</span></div><div class="swb"><code>coral</code><p>Rainbow 1 · Needed/Ask, Friends, Bicycles, unread badge and dot.</p></div></div><div class="sw"><div class="chip" style="background:#FF9F43;color:#141414"><span>#FF9F43</span><span>2.0:1 on white</span></div><div class="swb"><code>orange</code><p>Rainbow 2 · Items, Bonus grandparents, Music. Fills and rings only, never small text.</p></div></div><div class="sw"><div class="chip" style="background:#FECA57;color:#141414"><span>#FECA57</span><span>1.5:1 on white</span></div><div class="swb"><code>yellow</code><p>Rainbow 3 · Food club, Scooters. Fills and rings only, never text.</p></div></div><div class="sw"><div class="chip" style="background:#1DD1A1;color:#141414"><span>#1DD1A1</span><span>2.0:1 on white</span></div><div class="swb"><code>mint</code><p>Rainbow 4 · Offered, Activities, Volunteering. Fills and rings only, never text.</p></div></div><div class="sw"><div class="chip" style="background:#54A0FF;color:#141414"><span>#54A0FF</span><span>2.7:1 on white</span></div><div class="swb"><code>blue</code><p>Rainbow 5 · Moving &amp; repairs, Sports. Fills and rings only.</p></div></div><div class="sw"><div class="chip" style="background:#A55EEA;color:#141414"><span>#A55EEA</span><span>3.9:1 on white</span></div><div class="swb"><code>purple</code><p>Rainbow 6 · Events, Language practice, event steps.</p></div></div></div><h3>Rainbow tints</h3><div class="swatches"><div class="sw"><div class="chip" style="background:#FFE1E1;color:#141414"><span>#FFE1E1</span><span>1.2:1 on white</span></div><div class="swb"><code>coral-soft</code><p>Coral tint: category icon background, Needed tag.</p></div></div><div class="sw"><div class="chip" style="background:#FFEAD6;color:#141414"><span>#FFEAD6</span><span>1.2:1 on white</span></div><div class="swb"><code>orange-soft</code><p>Orange tint.</p></div></div><div class="sw"><div class="chip" style="background:#FFF2CF;color:#141414"><span>#FFF2CF</span><span>1.1:1 on white</span></div><div class="swb"><code>yellow-soft</code><p>Yellow tint; background of the Expired status.</p></div></div><div class="sw"><div class="chip" style="background:#D5F5EA;color:#141414"><span>#D5F5EA</span><span>1.2:1 on white</span></div><div class="swb"><code>mint-soft</code><p>Mint tint; background of the Live status and Offered tag.</p></div></div><div class="sw"><div class="chip" style="background:#DCEAFF;color:#141414"><span>#DCEAFF</span><span>1.2:1 on white</span></div><div class="swb"><code>blue-soft</code><p>Blue tint.</p></div></div><div class="sw"><div class="chip" style="background:#EEE2FB;color:#141414"><span>#EEE2FB</span><span>1.2:1 on white</span></div><div class="swb"><code>purple-soft</code><p>Purple tint; background of the Event tag.</p></div></div></div><h3>Semantic</h3><div class="swatches"><div class="sw"><div class="chip" style="background:#13B88A;color:#141414"><span>#13B88A</span><span>2.5:1 on white</span></div><div class="swb"><code>safe</code><p>Safe places: map pins and the verified badge on the profile photo.</p></div></div><div class="sw"><div class="chip" style="background:#0E7A5C;color:#FFFFFF"><span>#0E7A5C</span><span>5.3:1 on white</span></div><div class="swb"><code>safe-ink</code><p>Text and icons for &#x27;safe&#x27;, &#x27;confirmed&#x27;, Live and Available. On surface-card 5.3:1, on safe-soft 4.8:1, on mint-soft 4.6:1.</p></div></div><div class="sw"><div class="chip" style="background:#E3F7EF;color:#141414"><span>#E3F7EF</span><span>1.1:1 on white</span></div><div class="swb"><code>safe-soft</code><p>Background of the &#x27;Safe meeting place&#x27; pill and confirmations.</p></div></div><div class="sw"><div class="chip" style="background:#D93A3A;color:#FFFFFF"><span>#D93A3A</span><span>4.5:1 on white</span></div><div class="swb"><code>danger</code><p>Destructive actions and errors: Delete, Report, Block, Discard, Not sent; also the required-field asterisk. On surface-card only (4.55:1).</p></div></div><div class="sw"><div class="chip" style="background:#FFE6DF;color:#141414"><span>#FFE6DF</span><span>1.2:1 on white</span></div><div class="swb"><code>danger-soft</code><p>Background of urgency and error pills.</p></div></div><div class="sw"><div class="chip" style="background:#A3461A;color:#FFFFFF"><span>#A3461A</span><span>6.1:1 on white</span></div><div class="swb"><code>urgent-ink</code><p>Text of urgency pills (Today, Urgent) on danger-soft (5.1:1).</p></div></div><div class="sw"><div class="chip" style="background:#8A6A00;color:#FFFFFF"><span>#8A6A00</span><span>5.1:1 on white</span></div><div class="swb"><code>warning-ink</code><p>Text of the Expired status on yellow-soft.</p></div></div></div></section>
+<section id="type"><h2>Typography</h2><p class="lead">Poppins, weights 400 and 500 only.</p><h3>Headings</h3><div class="types"><div class="ty"><div class="tym"><code>display</code><span>34px · 400 · lh 1.04 · ls -0.03em</span><p>Onboarding titles and confirmation overlays.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:34px;line-height:1.04;font-weight:400;letter-spacing:-0.03em;">Share what you have</div></div><div class="ty"><div class="tym"><code>page-title</code><span>34px · 500 · lh 1.1 · ls -0.03em</span><p>Tab page titles (Chat, Profile, Map).</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:34px;line-height:1.1;font-weight:500;letter-spacing:-0.03em;">Chat</div></div><div class="ty"><div class="tym"><code>section-title</code><span>26px · 400 · lh 1.15 · ls -0.02em</span><p>Sheet titles and large sections.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:26px;line-height:1.15;font-weight:400;letter-spacing:-0.02em;">Your rainbow points</div></div><div class="ty"><div class="tym"><code>card-title</code><span>17px · 500 · lh 1.3</span><p>Card titles and important rows.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:17px;line-height:1.3;font-weight:500;letter-spacing:0;">Kids&#x27; bike 20&quot;, blue</div></div></div><h3>Text</h3><div class="types"><div class="ty"><div class="tym"><code>body</code><span>15px · 400 · lh 1.5</span><p>Running text, chat messages.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:15px;line-height:1.5;font-weight:400;letter-spacing:0;">I&#x27;m moving to a flat two streets away.</div></div><div class="ty"><div class="tym"><code>body-sm</code><span>14px · 400 · lh 1.45</span><p>List rows, card descriptions.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:14px;line-height:1.45;font-weight:400;letter-spacing:0;">You can edit or remove your post anytime.</div></div><div class="ty"><div class="tym"><code>meta</code><span>12px · 400 · lh 1.4</span><p>Metadata in ink-3.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:12px;line-height:1.4;font-weight:400;letter-spacing:0;">~700 m · Bonnevoie · 2 h ago</div></div><div class="ty"><div class="tym"><code>label</code><span>11px · 500 · lh 1.2 · ls 1.5px</span><p>Uppercase section labels in ink-3. One variant only.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:11px;line-height:1.2;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;">CONVERSATIONS</div></div></div><h3>Controls</h3><div class="types"><div class="ty"><div class="tym"><code>button</code><span>15px · 500 · lh 1</span><p>Primary and large secondary CTAs.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:15px;line-height:1;font-weight:500;letter-spacing:0;">Continue</div></div><div class="ty"><div class="tym"><code>chip</code><span>12px · 500 · lh 1</span><p>Filter chips, quick replies, small buttons.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:12px;line-height:1;font-weight:500;letter-spacing:0;">Unread</div></div><div class="ty"><div class="tym"><code>tag</code><span>10px · 500 · lh 1</span><p>Status pills inside cards and bottom-bar labels.</p></div><div class="tys" style="font-family:Poppins,system-ui,sans-serif;font-size:10px;line-height:1;font-weight:500;letter-spacing:0;">Today</div></div></div></section>
+<section id="space"><h2>Space &amp; shape</h2><p class="lead">Spacing, radii, shadows and control heights.</p>
+<h3>Spacing</h3><div class="card"><div class="sp"><span class="bar" style="width:4px"></span><code>space-4</code><span class="v">4px</span><p>Tight text-to-text spacing.</p></div><div class="sp"><span class="bar" style="width:6px"></span><code>space-6</code><span class="v">6px</span><p>Gap between a chip&#x27;s icon and text.</p></div><div class="sp"><span class="bar" style="width:8px"></span><code>space-8</code><span class="v">8px</span><p>Standard gap in chip rows and grids.</p></div><div class="sp"><span class="bar" style="width:12px"></span><code>space-12</code><span class="v">12px</span><p>Gap between cards, inner row padding.</p></div><div class="sp"><span class="bar" style="width:16px"></span><code>space-16</code><span class="v">16px</span><p>Screen side gutter, card padding.</p></div><div class="sp"><span class="bar" style="width:20px"></span><code>space-20</code><span class="v">20px</span><p>Padding of large cards and sheets.</p></div><div class="sp"><span class="bar" style="width:24px"></span><code>space-24</code><span class="v">24px</span><p>Space between sections.</p></div></div>
+<h3>Radius</h3><div class="ras"><div class="ra"><div class="rbox" style="border-radius:12px"></div><code>radius-sm</code><span class="v">12px</span><p>Thumbnails, square category icons.</p></div><div class="ra"><div class="rbox" style="border-radius:16px"></div><code>radius-md</code><span class="v">16px</span><p>Photos inside cards, chat bubbles, form fields.</p></div><div class="ra"><div class="rbox" style="border-radius:22px"></div><code>radius-lg</code><span class="v">22px</span><p>List cards (posts, chats, profile rows).</p></div><div class="ra"><div class="rbox" style="border-radius:28px"></div><code>radius-xl</code><span class="v">28px</span><p>Hero cards (profile, points), sheets, overlays.</p></div><div class="ra"><div class="rbox" style="border-radius:999px"></div><code>radius-full</code><span class="v">999px</span><p>Buttons, chips, pills, avatars, bottom bar.</p></div></div>
+<h3>Shadow</h3><div class="ras"><div class="ra"><div class="sbox" style="box-shadow:0 6px 16px -10px rgba(20,20,20,.4)"></div><code>shadow-sm</code><p>Filter chips, floating buttons, pins.</p></div><div class="ra"><div class="sbox" style="box-shadow:0 18px 36px -26px rgba(20,20,20,.35)"></div><code>shadow-card</code><p>Cards on surface.</p></div><div class="ra"><div class="sbox" style="box-shadow:0 20px 40px -20px rgba(20,20,20,.45)"></div><code>shadow-float</code><p>Bottom bar, toasts, sheets, floating banners.</p></div></div>
+<h3>Control heights</h3><div class="card"><div class="sp"><span class="hbar" style="height:52px"></span><code>control-lg</code><span class="v">52px</span><p>Full-width primary CTA, inputs.</p></div><div class="sp"><span class="hbar" style="height:38px"></span><code>control-md</code><span class="v">38px</span><p>Secondary buttons, buttons inside cards and banners.</p></div><div class="sp"><span class="hbar" style="height:36px"></span><code>control-chip</code><span class="v">36px</span><p>Filter chips in Home, Map and Chat.</p></div><div class="sp"><span class="hbar" style="height:32px"></span><code>control-sm</code><span class="v">32px</span><p>Chat quick replies, small buttons inside cards.</p></div><div class="sp"><span class="hbar" style="height:44px"></span><code>icon-btn</code><span class="v">44px</span><p>Round icon-only buttons (back, close, filters).</p></div></div></section>
+<section id="components"><h2>Components</h2><p class="lead">Live previews built from the tokens, with usage rules.</p><div class="cnav"><a href="#c-button">Button</a><a href="#c-chip">Chip</a><a href="#c-bottombar">BottomBar</a><a href="#c-postcard">PostCard</a><a href="#c-categoryicon">CategoryIcon</a><a href="#c-statustag">StatusTag</a><a href="#c-textfield">TextField</a><a href="#c-toast">Toast</a><a href="#c-banner">Banner</a></div><article class="comp" id="c-button"><div class="ch"><span class="grp">Actions</span><h3>Button</h3></div><iframe title="Button preview" loading="lazy" style="height:190px" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Button&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+body{margin:0;padding:16px;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8)}
+.col{display:flex;flex-direction:column;gap:var(--space-12)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.btn{height:var(--control-lg);padding:0 24px;border-radius:var(--radius-full);border:0;font:500 15px Poppins;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.primary{background:var(--ink);color:var(--on-ink)}
+.secondary{background:var(--surface-card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.md{height:var(--control-md);padding:0 16px;font-size:13px}
+.danger{background:none;color:var(--danger);padding:0 8px}
+.icon{width:var(--icon-btn);height:var(--icon-btn);padding:0;border-radius:var(--radius-full);border:0;background:var(--surface-card);box-shadow:var(--shadow-sm);display:inline-flex;align-items:center;justify-content:center;color:var(--ink)}
+.full{width:100%;max-width:360px}
+
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;button class=&quot;btn primary full&quot;&gt;Continue&lt;/button&gt;
+&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;btn secondary&quot;&gt;Save draft&lt;/button&gt;&lt;button class=&quot;btn primary md&quot;&gt;Turn on&lt;/button&gt;&lt;button class=&quot;btn secondary md&quot;&gt;Open chat&lt;/button&gt;&lt;button class=&quot;btn danger md&quot;&gt;Delete post&lt;/button&gt;&lt;button class=&quot;icon&quot; aria-label=&quot;Filters&quot;&gt;&lt;svg width=&quot;19&quot; height=&quot;19&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M4 6h16M7 12h10M10 18h4&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe><div class="cr"><p>The primary CTA is solid black: one per screen, for the main action ("Continue", "Send request", "Publish").</p>
+<ul>
+<li><strong>Primary:</strong> <code>ink</code> + <code>on-ink</code>, <code>control-lg</code> high (52px), <code>radius-full</code>, <code>button</code> text. Full width at the bottom of sheets and flows.</li>
+<li><strong>Secondary:</strong> <code>surface-card</code> with a 1px <code>line-strong</code> border ("Save draft", "Open chat").</li>
+<li><strong>Medium:</strong> <code>control-md</code> (38px), 13px text, for actions inside cards and banners ("Turn on", "Mark as received").</li>
+<li><strong>Destructive:</strong> <code>danger</code> text with no fill. Destructive confirmations live in a sheet.</li>
+<li><strong>Icon only:</strong> an <code>icon-btn</code> circle (44px), <code>surface-card</code> with <code>shadow-sm</code> (back, filters, close).</li>
+</ul>
+<p>Labels are a verb in sentence case. Never use the rainbow on buttons.</p></div></article><article class="comp" id="c-chip"><div class="ch"><span class="grp">Actions</span><h3>Chip</h3></div><iframe title="Chip preview" loading="lazy" style="height:160px" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Chip&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+body{margin:0;padding:16px;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8)}
+.col{display:flex;flex-direction:column;gap:var(--space-12)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.chip{height:var(--control-chip);padding:0 14px;border-radius:var(--radius-full);border:0;font:500 12px Poppins;display:inline-flex;align-items:center;gap:6px;background:var(--surface-card);color:var(--ink);box-shadow:var(--shadow-sm)}
+.on{background:var(--ink);color:var(--on-ink);box-shadow:var(--shadow-sm)}
+.count{min-width:18px;height:18px;padding:0 5px;border-radius:var(--radius-full);background:var(--coral);color:var(--on-ink);font:500 10px Poppins;display:inline-flex;align-items:center;justify-content:center}
+.on .count{background:var(--surface-card);color:var(--ink)}
+.seg{display:inline-flex;padding:3px;border-radius:var(--radius-full);background:var(--fill)}
+.seg button{height:30px;padding:0 16px;border:0;border-radius:var(--radius-full);background:none;font:500 12px Poppins;color:var(--ink-2)}
+.seg .sel{background:var(--surface-card);color:var(--ink);box-shadow:var(--shadow-sm)}
+
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;chip on&quot;&gt;All&lt;/button&gt;&lt;button class=&quot;chip&quot;&gt;Unread &lt;span class=&quot;count&quot;&gt;3&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;chip&quot;&gt;Requests &lt;span class=&quot;count&quot;&gt;2&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;chip&quot;&gt;&lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;8&quot; width=&quot;18&quot; height=&quot;4&quot; rx=&quot;1&quot;/&gt;&lt;path d=&quot;M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5&quot;/&gt;&lt;/svg&gt; Items&lt;/button&gt;&lt;button class=&quot;chip&quot;&gt;Organisations&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;row&quot;&gt;&lt;div class=&quot;seg&quot;&gt;&lt;button class=&quot;sel&quot;&gt;Calendar&lt;/button&gt;&lt;button&gt;List&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;seg&quot;&gt;&lt;button&gt;Week&lt;/button&gt;&lt;button class=&quot;sel&quot;&gt;Month&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe><div class="cr"><p>Chips filter content and switch views: the Chat tags, the Map suggestions, the categories.</p>
+<ul>
+<li><strong>Chip:</strong> <code>control-chip</code> high (36px), <code>radius-full</code>, <code>chip</code> text. Inactive: <code>surface-card</code> with <code>shadow-sm</code>, the same in Home, Map and Chat. Active: <code>ink</code> + <code>on-ink</code>. Never a grey <code>fill</code> background.</li>
+<li><strong>Counter:</strong> a <code>coral</code> pill with <code>on-ink</code> text (unread, requests). On an active chip it turns white.</li>
+<li><strong>Segmented:</strong> a <code>fill</code> track with the selected segment in <code>surface-card</code> and <code>shadow-sm</code> (Calendar | List, Week | Month).</li>
+</ul>
+<p>Chips sit in a horizontally scrolling row with a <code>space-8</code> gap.</p></div></article><article class="comp" id="c-bottombar"><div class="ch"><span class="grp">Navigation</span><h3>BottomBar</h3></div><iframe title="BottomBar preview" loading="lazy" style="height:160px" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;BottomBar&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+body{margin:0;padding:16px;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8)}
+.col{display:flex;flex-direction:column;gap:var(--space-12)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.bar{display:flex;align-items:center;justify-content:space-around;max-width:362px;height:66px;padding:0 6px;border-radius:33px;background:var(--surface-card);box-shadow:var(--shadow-float)}
+.it{position:relative;flex:1;height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:none;border-radius:27px;font:500 10px Poppins;color:var(--ink-3)}
+.it.on{background:var(--fill);color:var(--ink)}
+.plus{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--on-ink);display:flex;align-items:center;justify-content:center}
+.bd{position:absolute;top:2px;right:8px;min-width:17px;height:17px;padding:0 4px;border-radius:var(--radius-full);background:var(--coral);color:var(--on-ink);font:500 10px Poppins;display:flex;align-items:center;justify-content:center;border:2px solid var(--surface-card)}
+
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;nav class=&quot;bar&quot;&gt;&lt;button class=&quot;it&quot;&gt;&lt;svg width=&quot;21&quot; height=&quot;21&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 10.5 12 3l9 7.5V21H3z&quot;/&gt;&lt;/svg&gt;Home&lt;/button&gt;&lt;button class=&quot;it&quot;&gt;&lt;svg width=&quot;21&quot; height=&quot;21&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;9.5&quot; r=&quot;2.5&quot;/&gt;&lt;/svg&gt;Map&lt;/button&gt;&lt;button class=&quot;it&quot;&gt;&lt;span class=&quot;plus&quot;&gt;&lt;svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;Post&lt;/button&gt;&lt;button class=&quot;it on&quot;&gt;&lt;svg width=&quot;21&quot; height=&quot;21&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M7.9 20A9 9 0 1 0 4 16.1L2 22z&quot;/&gt;&lt;/svg&gt;Chat&lt;span class=&quot;bd&quot;&gt;3&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;it&quot;&gt;&lt;svg width=&quot;21&quot; height=&quot;21&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;4&quot;/&gt;&lt;path d=&quot;M4 21a8 8 0 0 1 16 0&quot;/&gt;&lt;/svg&gt;Profile&lt;/button&gt;&lt;/nav&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe><div class="cr"><p>The main navigation: a floating pill with five items, Home, Map, Post, Chat, Profile.</p>
+<ul>
+<li><code>surface-card</code>, 66px high, 33px radius, <code>shadow-float</code>, lifted off the bottom edge. Behind it sits a 72px fade into <code>surface</code>, so content doesn't scroll visibly behind the bar.</li>
+<li>Items are 54px high with a 27px radius, concentric with the bar (6px padding). The active item has a <code>fill</code> background and <code>ink</code> text; the others are <code>ink-3</code>. Labels are 10px/500.</li>
+<li>Post is an <code>ink</code> circle with a "+" in <code>on-ink</code>.</li>
+<li>Chat carries the unread badge: a <code>coral</code> pill, <code>on-ink</code> text, a 2px <code>surface-card</code> border. It counts unread conversations.</li>
+</ul></div></article><article class="comp" id="c-postcard"><div class="ch"><span class="grp">Content</span><h3>PostCard</h3></div><iframe title="PostCard preview" loading="lazy" style="height:240px" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;PostCard&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+body{margin:0;padding:16px;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8)}
+.col{display:flex;flex-direction:column;gap:var(--space-12)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.card{display:flex;gap:12px;padding:12px;max-width:360px;border-radius:var(--radius-lg);background:var(--surface-card);box-shadow:var(--shadow-card)}
+.ph{width:88px;height:88px;flex:none;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--orange-soft),var(--coral-soft));display:flex;align-items:center;justify-content:center;color:var(--orange)}
+.b{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.t{font:500 15px/1.3 Poppins;margin:0}
+.m{font:400 12px/1.4 Poppins;color:var(--ink-3)}
+.tag{align-self:flex-start;height:22px;padding:0 9px;border-radius:var(--radius-full);font:500 10px Poppins;display:inline-flex;align-items:center}
+.who{display:flex;align-items:center;gap:6px;margin-top:auto;font:400 12px Poppins;color:var(--ink-2)}
+.av{width:20px;height:20px;border-radius:50%;background:var(--purple);color:var(--on-ink);font:500 10px Poppins;display:flex;align-items:center;justify-content:center}
+
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;ph&quot;&gt;&lt;svg width=&quot;34&quot; height=&quot;34&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;circle cx=&quot;5.5&quot; cy=&quot;17.5&quot; r=&quot;3.5&quot;/&gt;&lt;circle cx=&quot;18.5&quot; cy=&quot;17.5&quot; r=&quot;3.5&quot;/&gt;&lt;path d=&quot;M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM12 17.5V14l-3-3 4-3 2 3h2&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div class=&quot;b&quot;&gt;&lt;span class=&quot;tag&quot; style=&quot;background:var(--mint-soft)&quot;&gt;Offered&lt;/span&gt;&lt;p class=&quot;t&quot;&gt;Kids&#x27; bike 20&quot;, blue&lt;/p&gt;&lt;span class=&quot;m&quot;&gt;~700 m · Bonnevoie · 2 h ago&lt;/span&gt;&lt;span class=&quot;who&quot;&gt;&lt;span class=&quot;av&quot;&gt;Y&lt;/span&gt;Yonas&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;ph&quot; style=&quot;background:var(--blue-soft);color:var(--blue)&quot;&gt;&lt;svg width=&quot;30&quot; height=&quot;30&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/&gt;&lt;circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;&lt;path d=&quot;M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div class=&quot;b&quot;&gt;&lt;div class=&quot;row&quot; style=&quot;gap:6px&quot;&gt;&lt;span class=&quot;tag&quot; style=&quot;background:var(--coral-soft)&quot;&gt;Needed&lt;/span&gt;&lt;span class=&quot;tag&quot; style=&quot;background:var(--danger-soft);color:var(--urgent-ink)&quot;&gt;Today&lt;/span&gt;&lt;/div&gt;&lt;p class=&quot;t&quot;&gt;Help moving a couch on Saturday&lt;/p&gt;&lt;span class=&quot;m&quot;&gt;Gare · 1.2 km · 2 h ago&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe><div class="cr"><p>The list card in Home: photo, type, title, distance and author.</p>
+<ul>
+<li><code>surface-card</code>, <code>radius-lg</code>, <code>shadow-card</code>, <code>space-12</code> padding.</li>
+<li>The photo is 88px with <code>radius-md</code>. Without a photo: the category tint as background with the icon in the full colour.</li>
+<li>In order: the type tag (plus "Today" when urgent), the <code>card-title</code> title (15–17px), <code>meta</code> in <code>ink-3</code> as <code>~distance · neighbourhood · time</code>, then the author with a 20px avatar.</li>
+<li>Cards stack in a column with a <code>space-12</code> gap. Tapping a card opens the post detail.</li>
+</ul></div></article><article class="comp" id="c-categoryicon"><div class="ch"><span class="grp">Content</span><h3>CategoryIcon</h3></div><iframe title="CategoryIcon preview" loading="lazy" style="height:140px" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;CategoryIcon&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+body{margin:0;padding:16px;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8)}
+.col{display:flex;flex-direction:column;gap:var(--space-12)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.ci{width:44px;height:44px;border-radius:var(--radius-sm);display:inline-flex;align-items:center;justify-content:center}
+.lb{font:400 11px Poppins;color:var(--ink-2);text-align:center;margin-top:4px}
+.c{display:flex;flex-direction:column;align-items:center;width:72px}
+
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;row&quot; style=&quot;gap:4px&quot;&gt;&lt;div class=&quot;c&quot;&gt;&lt;span class=&quot;ci&quot; style=&quot;background:var(--coral-soft);color:var(--coral)&quot;&gt;&lt;svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;span class=&quot;lb&quot;&gt;Needed&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;c&quot;&gt;&lt;span class=&quot;ci&quot; style=&quot;background:var(--orange-soft);color:var(--orange)&quot;&gt;&lt;svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;8&quot; width=&quot;18&quot; height=&quot;4&quot; rx=&quot;1&quot;/&gt;&lt;path d=&quot;M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;span class=&quot;lb&quot;&gt;Items&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;c&quot;&gt;&lt;span class=&quot;ci&quot; style=&quot;background:var(--yellow-soft);color:var(--yellow)&quot;&gt;&lt;svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;8&quot; width=&quot;18&quot; height=&quot;4&quot; rx=&quot;1&quot;/&gt;&lt;path d=&quot;M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;span class=&quot;lb&quot;&gt;Food club&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;c&quot;&gt;&lt;span class=&quot;ci&quot; style=&quot;background:var(--mint-soft);color:var(--mint)&quot;&gt;&lt;svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/&gt;&lt;circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;&lt;path d=&quot;M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;span class=&quot;lb&quot;&gt;Activities&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;c&quot;&gt;&lt;span class=&quot;ci&quot; style=&quot;background:var(--blue-soft);color:var(--blue)&quot;&gt;&lt;svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/&gt;&lt;circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;&lt;path d=&quot;M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;span class=&quot;lb&quot;&gt;Moving&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;c&quot;&gt;&lt;span class=&quot;ci&quot; style=&quot;background:var(--purple-soft);color:var(--purple)&quot;&gt;&lt;svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2&quot;/&gt;&lt;circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;&lt;path d=&quot;M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;span class=&quot;lb&quot;&gt;Events&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe><div class="cr"><p>The coloured square that identifies a category or type, in cards, filters and map pins.</p>
+<ul>
+<li>44px, <code>radius-sm</code>, a <code>*-soft</code> tint background, a 22px Lucide icon in the full colour.</li>
+<li>Colours follow the code: Needed <code>coral</code>, Items <code>orange</code>, Activities <code>mint</code>, Events <code>purple</code>. Categories reuse the six colours; "Other" is <code>ink</code> on <code>fill</code>.</li>
+<li>On the map the same colour becomes the 1.5px ring around the white pin. Safe places are <code>safe</code>.</li>
+</ul></div></article><article class="comp" id="c-statustag"><div class="ch"><span class="grp">Status</span><h3>StatusTag</h3></div><iframe title="StatusTag preview" loading="lazy" style="height:136px" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;StatusTag&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+body{margin:0;padding:16px;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8)}
+.col{display:flex;flex-direction:column;gap:var(--space-12)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.tag{height:22px;padding:0 9px;border-radius:var(--radius-full);font:500 10px Poppins;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;row&quot;&gt;
+&lt;span class=&quot;tag&quot; style=&quot;background:var(--coral-soft);color:var(--ink)&quot;&gt;Needed&lt;/span&gt;
+&lt;span class=&quot;tag&quot; style=&quot;background:var(--mint-soft);color:var(--ink)&quot;&gt;Offered&lt;/span&gt;
+&lt;span class=&quot;tag&quot; style=&quot;background:var(--purple-soft);color:var(--ink)&quot;&gt;Event&lt;/span&gt;
+&lt;span class=&quot;tag&quot; style=&quot;background:var(--danger-soft);color:var(--urgent-ink)&quot;&gt;Today&lt;/span&gt;
+&lt;span class=&quot;tag&quot; style=&quot;background:var(--mint-soft);color:var(--safe-ink)&quot;&gt;Live&lt;/span&gt;
+&lt;span class=&quot;tag&quot; style=&quot;background:var(--yellow-soft);color:var(--warning-ink)&quot;&gt;Expired&lt;/span&gt;
+&lt;span class=&quot;tag&quot; style=&quot;background:var(--fill);color:var(--ink-2)&quot;&gt;Given&lt;/span&gt;
+&lt;span class=&quot;tag&quot; style=&quot;background:var(--safe-soft);color:var(--safe-ink)&quot;&gt;Safe meeting place&lt;/span&gt;
+&lt;span class=&quot;tag&quot; style=&quot;background:var(--ink);color:var(--on-ink)&quot;&gt;Request&lt;/span&gt;
+&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe><div class="cr"><p>Status pills inside cards and rows: they show the post type, urgency or a listing's state.</p>
+<ul>
+<li>22px high, <code>radius-full</code>, <code>tag</code> text (10px/500).</li>
+<li><strong>Post type:</strong> <code>coral-soft</code> (Needed), <code>mint-soft</code> (Offered) or <code>purple-soft</code> (Event) background with <code>ink</code> text. The full rainbow colour is never used as text.</li>
+<li><strong>Urgency:</strong> <code>urgent-ink</code> on <code>danger-soft</code>. One style for both "Today" and "Urgent".</li>
+<li><strong>My posts:</strong> Live is <code>safe-ink</code> on <code>mint-soft</code>, Expired is <code>warning-ink</code> on <code>yellow-soft</code>, Given is <code>ink-2</code> on <code>fill</code>.</li>
+<li><strong>Safety:</strong> "Safe meeting place" in <code>safe-ink</code> on <code>safe-soft</code>.</li>
+</ul></div></article><article class="comp" id="c-textfield"><div class="ch"><span class="grp">Forms</span><h3>TextField</h3></div><iframe title="TextField preview" loading="lazy" style="height:210px" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;TextField&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+body{margin:0;padding:16px;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8)}
+.col{display:flex;flex-direction:column;gap:var(--space-12)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.f{display:flex;flex-direction:column;gap:8px;max-width:360px}
+.lab{font:500 11px Poppins;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3)}
+.req{color:var(--danger);margin-left:3px}
+.in{height:var(--control-lg);padding:0 16px;border-radius:var(--radius-md);border:1px solid var(--line-strong);background:var(--surface-card);font:400 15px Poppins;color:var(--ink);width:100%}
+.in::placeholder{color:var(--ink-3)}
+.in:focus{outline:2px solid var(--ink);outline-offset:1px}
+.hint{font:400 12px Poppins;color:var(--ink-3)}
+
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;label class=&quot;f&quot;&gt;&lt;span class=&quot;lab&quot;&gt;Title&lt;span class=&quot;req&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;input class=&quot;in&quot; id=&quot;tf-title&quot; placeholder=&quot;What do you need? e.g. a bike for my son&quot;&gt;&lt;/label&gt;
+&lt;label class=&quot;f&quot;&gt;&lt;span class=&quot;lab&quot;&gt;Area&lt;/span&gt;&lt;input class=&quot;in&quot; id=&quot;tf-area&quot; value=&quot;Bonnevoie&quot;&gt;&lt;span class=&quot;hint&quot;&gt;Only the neighbourhood is shown, never your address.&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe><div class="cr"><p>Form fields (Post, Edit profile, search).</p>
+<ul>
+<li>A <code>label</code> above the field, with a <code>danger</code> asterisk when the field is required.</li>
+<li>The field is <code>control-lg</code> high (52px), <code>radius-md</code>, <code>surface-card</code> with a 1px <code>line-strong</code> border, <code>body</code> text. The placeholder is <code>ink-3</code> and gives a concrete example.</li>
+<li>Focus is a 2px <code>ink</code> ring. The hint below is <code>meta</code> in <code>ink-3</code>.</li>
+<li>The Home search uses the same field with <code>radius-full</code> and a search icon.</li>
+</ul></div></article><article class="comp" id="c-toast"><div class="ch"><span class="grp">Feedback</span><h3>Toast</h3></div><iframe title="Toast preview" loading="lazy" style="height:150px" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Toast&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+body{margin:0;padding:16px;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8)}
+.col{display:flex;flex-direction:column;gap:var(--space-12)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.t{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 8px 0 18px;border-radius:var(--radius-full);background:var(--ink);color:var(--on-ink);font:500 13px Poppins;box-shadow:var(--shadow-float)}
+.x{width:28px;height:28px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:var(--on-ink);display:flex;align-items:center;justify-content:center}
+.off{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:var(--radius-full);background:var(--ink);color:var(--on-ink);font:500 12px Poppins}
+
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;col&quot; style=&quot;align-items:flex-start&quot;&gt;
+&lt;div class=&quot;t&quot;&gt;Draft saved&lt;button class=&quot;x&quot; aria-label=&quot;Dismiss&quot;&gt;&lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M18 6 6 18M6 6l12 12&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;off&quot;&gt;&lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M2 2l20 20M8.5 16.5a5 5 0 0 1 7 0M5 13a10 10 0 0 1 5.2-2.7M19 13a10 10 0 0 0-2.3-1.6M12 20h.01&quot;/&gt;&lt;/svg&gt;You&#x27;re offline · we&#x27;ll send things when you&#x27;re back&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe><div class="cr"><p>Short confirmations and the offline state.</p>
+<ul>
+<li><strong>Toast:</strong> an <code>ink</code> pill with <code>on-ink</code> text (13px/500) and <code>shadow-float</code>, at the bottom above the bottom bar. It stays 2 seconds and has a ✕ to dismiss it. The text says what happened, in the past tense: "Draft saved", "Link copied".</li>
+<li><strong>Offline:</strong> the same pill, shorter (34px), fixed at the top of the screen until the connection is back.</li>
+</ul></div></article><article class="comp" id="c-banner"><div class="ch"><span class="grp">Feedback</span><h3>Banner</h3></div><iframe title="Banner preview" loading="lazy" style="height:190px" srcdoc="&lt;!doctype html&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Banner&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;:root{--ink:#141414;--ink-2:#5E5E5A;--ink-3:#6B6B67;--on-ink:#FFFFFF;--frame:#ECECE8;--surface:#F6F6F4;--surface-card:#FFFFFF;--fill:#F1F1EE;--line:#ECECE8;--line-strong:#DCDCD6;--coral:#FF5A5F;--orange:#FF9F43;--yellow:#FECA57;--mint:#1DD1A1;--blue:#54A0FF;--purple:#A55EEA;--coral-soft:#FFE1E1;--orange-soft:#FFEAD6;--yellow-soft:#FFF2CF;--mint-soft:#D5F5EA;--blue-soft:#DCEAFF;--purple-soft:#EEE2FB;--safe:#13B88A;--safe-ink:#0E7A5C;--safe-soft:#E3F7EF;--danger:#D93A3A;--danger-soft:#FFE6DF;--urgent-ink:#A3461A;--warning-ink:#8A6A00;--space-4:4px;--space-6:6px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;--radius-sm:12px;--radius-md:16px;--radius-lg:22px;--radius-xl:28px;--radius-full:999px;--shadow-sm:0 6px 16px -10px rgba(20,20,20,.4);--shadow-card:0 18px 36px -26px rgba(20,20,20,.35);--shadow-float:0 20px 40px -20px rgba(20,20,20,.45);--control-lg:52px;--control-md:38px;--control-chip:36px;--control-sm:32px;--icon-btn:44px}
+body{margin:0;padding:16px;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8)}
+.col{display:flex;flex-direction:column;gap:var(--space-12)}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.bn{display:flex;align-items:center;gap:12px;max-width:362px;padding:12px 12px 12px 16px;border-radius:var(--radius-lg);background:var(--surface-card);box-shadow:var(--shadow-float)}
+.tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.a{font:500 14px Poppins}.b{font:400 12px Poppins;color:var(--ink-3)}
+.cta{height:var(--control-md);padding:0 16px;border-radius:var(--radius-full);border:0;background:var(--ink);color:var(--on-ink);font:500 13px Poppins}
+.fail{display:flex;flex-direction:column;align-items:flex-end;gap:4px;max-width:362px}
+.bub{padding:10px 14px;border-radius:var(--radius-md);background:var(--ink);color:var(--on-ink);font:400 15px Poppins}
+.err{font:500 12px Poppins;color:var(--danger)}
+
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;div class=&quot;bn&quot;&gt;&lt;svg width=&quot;22&quot; height=&quot;22&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M2 2l20 20M10.4 5.2A7 7 0 0 1 19 9.5c0 1.7-.6 3.4-1.5 5M14.6 18.7C13.2 20.1 12 21 12 21s-7-6.2-7-11.5c0-1 .2-2 .6-2.9&quot;/&gt;&lt;/svg&gt;&lt;div class=&quot;tx&quot;&gt;&lt;span class=&quot;a&quot;&gt;Location is off&lt;/span&gt;&lt;span class=&quot;b&quot;&gt;Showing Luxembourg City centre&lt;/span&gt;&lt;/div&gt;&lt;button class=&quot;cta&quot;&gt;Turn on&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;fail&quot;&gt;&lt;span class=&quot;bub&quot;&gt;See you there!&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Not sent · Tap to retry&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe><div class="cr"><p>Error states that don't block the screen: permission denied and failed send.</p>
+<ul>
+<li><strong>Permission denied:</strong> a <code>surface-card</code> card, <code>radius-lg</code>, <code>shadow-float</code>. It holds an icon, a title (14px/500) saying what is missing, one <code>ink-3</code> line saying what we show instead, and a medium <code>ink</code> CTA to fix it ("Turn on").</li>
+<li><strong>Failed send:</strong> under the bubble, "Not sent · Tap to retry" in <code>danger</code> at 12px. Tapping retries.</li>
+</ul>
+<p>Never colour alone: there is always text that explains.</p></div></article></section>
+<section id="status"><h2>Status</h2><p class="lead">What is aligned in the app and what is still open.</p><div class="prose"><h1>Status and next steps</h1>
+<p>Where the alignment between the AppV5 prototype and this system stands.</p>
+<h2>Already aligned in the app</h2>
+<ul>
+<li><strong>Text:</strong> only <code>ink</code>, <code>ink-2</code> and <code>ink-3</code>. The too-light grey (#8A8A86) is gone from text.</li>
+<li><strong>Surfaces:</strong> only <code>surface</code>, <code>surface-card</code>, <code>fill</code>, <code>line</code> and <code>line-strong</code>, instead of seven near-identical light greys.</li>
+<li><strong>Destructive actions and errors:</strong> one red, <code>danger</code>, for Delete, Report, Block, Discard, "Not sent" and asterisks.</li>
+<li><strong>Safety and confirmations:</strong> one green for text, <code>safe-ink</code>, plus <code>safe</code> for pins and badges.</li>
+<li><strong>Urgency:</strong> "Today" and "Urgent" share one style, <code>urgent-ink</code> on <code>danger-soft</code>.</li>
+<li><strong>Primary CTA:</strong> always <code>control-lg</code>, 52px.</li>
+<li><strong>Uppercase labels:</strong> one variant, <code>label</code>.</li>
+<li><strong>Font weights:</strong> 400 and 500 only.</li>
+<li><strong>Filter chips:</strong> white with <code>shadow-sm</code> in Home, Map and Chat.</li>
+<li><strong>Bottom bar:</strong> concentric pills, plus a fade under the bar so content doesn't scroll visibly behind it.</li>
+<li><strong>Copy:</strong> "Events" everywhere, "Offered" in post rows, "Done" without a symbol. The "Under review" status has been removed.</li>
+</ul>
+<h2>Still to do</h2>
+<ul>
+<li><strong>Radii:</strong> the app still uses 31 different values. Map them to the 5 tokens: list cards to <code>radius-lg</code>, hero cards and sheets to <code>radius-xl</code>, photos to <code>radius-md</code>.</li>
+<li><strong>Shadows:</strong> 57 variants. Reduce them to <code>shadow-sm</code>, <code>shadow-card</code> and <code>shadow-float</code>.</li>
+<li><strong>Section titles:</strong> 25, 26, 28 and 30px. Unify on <code>section-title</code> (26px), with <code>display</code> (34px) for onboarding and confirmations.</li>
+<li><strong>Colours outside the system:</strong> about 80 hex values remain, used only in illustrations, header gradients, the map and generated avatars. They are decorative and can stay outside the tokens, as long as they are never used for text or controls.</li>
+</ul></div></section>
+</main>
+<footer>Riding the Rainbow · Afrilanthropy · Updated 19 November 2026 · Prototype: <a href="app5.html" style="color:var(--ink-2)">app5.html</a></footer>
+<script>
+(function(){var c=document.getElementById('cv'),f=c.querySelector('iframe');function fit(){f.style.transform='scale('+(c.clientWidth/960)+')'}fit();addEventListener('resize',fit);})();
+</script>
+</body></html>
