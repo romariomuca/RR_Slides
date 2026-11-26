@@ -1739,5 +1739,12 @@ class Component extends DCLogic {
   }
 }
 </script>
+<script>(function(){if(window.top!==window)return;
+var T={en:'<b>Demo</b> · This is a clickable prototype, not the real app. Data, people and posts are examples.',fr:'<b>Démo</b> · Ceci est un prototype cliquable, pas la vraie application. Les données, personnes et annonces sont des exemples.'};
+var s=document.createElement('style');s.textContent='#rr-demo{position:fixed;top:0;left:0;right:0;z-index:2147483000;display:flex;justify-content:center;padding:10px 16px;pointer-events:none}#rr-demo span{pointer-events:auto;max-width:560px;background:#141414;color:#fff;font:400 12.5px/1.45 Poppins,system-ui,sans-serif;padding:8px 16px;border-radius:999px;box-shadow:0 8px 20px -10px rgba(20,20,20,.45);text-align:center}#rr-demo b{font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:11px;margin-right:2px}body{padding-top:52px!important}@media (max-width:520px){#rr-demo span{border-radius:16px;font-size:12px}body{padding-top:68px!important}}';
+document.head.appendChild(s);var d=document.createElement('div');d.id='rr-demo';d.setAttribute('role','note');d.setAttribute('data-rr-notr','1');var sp=document.createElement('span');d.appendChild(sp);
+function up(){var l=document.documentElement.getAttribute('data-rrlang')==='fr'?'fr':'en';sp.innerHTML=T[l];sp.lang=l}
+function add(){document.body.appendChild(d);up();new MutationObserver(up).observe(document.documentElement,{attributes:true,attributeFilter:['data-rrlang']})}
+document.body?add():document.addEventListener('DOMContentLoaded',add)})();</script>
 </body>
 </html>
