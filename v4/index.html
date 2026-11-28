@@ -570,5 +570,23 @@ class Component extends DCLogic {
   }
 }
 </script>
+<script>(function(){
+var SEC=7,timer=null,bar=null,t0=0;
+function deck(){return document.querySelector('deck-stage')}
+var s=document.createElement('style');s.textContent='#rr-play{position:fixed;right:16px;bottom:16px;z-index:2147483000;display:flex;align-items:center;gap:8px;height:36px;padding:0 14px 0 10px;border:0;border-radius:999px;background:rgba(20,20,20,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font:500 12px/1 Poppins,system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 20px -10px rgba(20,20,20,.5);transition:opacity .3s;overflow:hidden}#rr-play svg{width:16px;height:16px;flex:none}#rr-play:focus-visible{outline:2px solid #141414;outline-offset:3px}#rr-play i{position:absolute;left:0;bottom:0;height:2px;width:0;background:#fff;opacity:.8}#rr-play.idle{opacity:0;pointer-events:none}';
+document.head.appendChild(s);
+var b=document.createElement('button');b.id='rr-play';b.type='button';b.innerHTML='<span class="ic"></span><span class="lb"></span><i></i>';
+var ic=b.querySelector('.ic'),lb=b.querySelector('.lb');bar=b.querySelector('i');
+var PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>',PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+function ui(){var on=!!timer;ic.innerHTML=on?PAUSE:PLAY;lb.textContent=on?'Pause':'Play';b.setAttribute('aria-label',on?'Pause slideshow':'Play slideshow in a loop');b.title=(on?'Pause':'Play in a loop')+' (P)';if(!on)bar.style.width='0'}
+function tick(){var p=(Date.now()-t0)/(SEC*1000);if(p>=1){var d=deck();if(d)d.goTo((d.index+1)%d.length);t0=Date.now();p=0}bar.style.width=(p*100)+'%'}
+function play(){if(timer)return;t0=Date.now();timer=setInterval(tick,50);ui()}
+function stop(){clearInterval(timer);timer=null;ui()}
+b.onclick=function(e){e.stopPropagation();timer?stop():play()};
+document.addEventListener('keydown',function(e){if((e.key==='p'||e.key==='P')&&!e.metaKey&&!e.ctrlKey){timer?stop():play()}else if(timer&&/^(Arrow|Page|Home|End| )/.test(e.key)){t0=Date.now()}},true);
+var idle;function wake(){b.classList.remove('idle');clearTimeout(idle);if(timer)idle=setTimeout(function(){b.classList.add('idle')},2500)}
+document.addEventListener('mousemove',wake);document.addEventListener('touchstart',wake,{passive:true});b.addEventListener('click',wake);
+function add(){document.body.appendChild(b);ui()}document.body?add():document.addEventListener('DOMContentLoaded',add);
+})();</script>
 </body>
 </html>
